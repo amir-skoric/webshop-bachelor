@@ -1,0 +1,31 @@
+.FrontPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 30px 30px;
+    background: linear-gradient(300deg,#0fce00,#00ffdd);
+    background-size: 120% 120%;
+    animation: gradient-animation 3s ease infinite;
+    color: white;
+    padding: 30px;
+}
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
