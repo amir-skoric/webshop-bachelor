@@ -12,7 +12,8 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   async function authCheck() {
     try {
@@ -22,6 +23,7 @@ export function AuthProvider({ children }) {
           setAuthenticated(res.data.session.isAuthenticated);
         } else {
           setAuthenticated(false);
+          setError(res.data.error)
         }
       });
     } catch (error) {
@@ -31,7 +33,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     authCheck();
-    setLoading(false)
+    setLoading(false);
   }, [authenticated]);
 
   const value = {
@@ -40,7 +42,9 @@ export function AuthProvider({ children }) {
     authenticated,
     setAuthenticated,
     loading,
-    setLoading
+    setLoading,
+    error,
+    setError,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

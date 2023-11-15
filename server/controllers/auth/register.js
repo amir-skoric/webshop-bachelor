@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     //check if an user with the chosen email exists
     const userCheck = await userCollection.exists({ email: req.body.email });
     if (userCheck) {
-      return res.status(405).send("User already exists");
+      return res.status(405).send({ error: "User already exists" });
     }
     //hashing the password with bcrypt
     req.body.password = await bcrypt.hash(req.body.password, 10);

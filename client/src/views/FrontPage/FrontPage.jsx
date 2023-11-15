@@ -1,6 +1,6 @@
 //imports
 import "./FrontPage.css";
-import ButtonTransparent from "../../components/ButtonTransparent/ButtonTransparent.tsx";
+import ButtonTransparent from "../../components/ButtonTransparent/ButtonTransparent.jsx";
 import { Link } from "react-router-dom";
 
 function FrontPage() {

@@ -2,15 +2,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../contexts/AuthContext"
+import { useAuth } from "../../../contexts/AuthContext";
+import Error from "../../../components/Error/Error";
 
 import "./Login.css";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { authenticated, setAuthenticated, authUser, setAuthUser } = useAuth();
+  const { setAuthenticated, setAuthUser, error, setError } = useAuth();
 
   async function submit(e) {
     e.preventDefault();
@@ -28,14 +28,12 @@ const Login = () => {
         )
         .then((res) => {
           if (res.status === 200) {
-            setAuthUser(res.data.user)
+            setAuthUser(res.data.user);
             setAuthenticated(res.data.authenticated);
-            alert("Successfully logged in");
-            window.location.reload();
           }
         });
     } catch (error) {
-      alert(error);
+      setError(error.response.data.error);
     }
   }
 
@@ -52,6 +50,7 @@ const Login = () => {
             placeholder="E-mail"
             name="email"
             id="email"
+            required
           />
           <input
             type="password"
@@ -61,8 +60,9 @@ const Login = () => {
             placeholder="Password"
             name="password"
             id="password"
+            required
           />
-
+          {error.length > 0 && <Error>{error}</Error>}
           <input type="submit" onClick={submit} />
         </form>
         <div className="container-click-here">
