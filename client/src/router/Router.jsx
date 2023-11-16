@@ -5,6 +5,10 @@ import Register from "../views/Auth/Register/Register";
 import Frontpage from "../views/FrontPage/FrontPage";
 import Dashboard from "../views/Dashboard/Dashboard";
 
+import NotFound from "../views/NotFound/NotFound";
+
+
+//contexts
 import { AuthProvider } from "../contexts/AuthContext";
 
 //routes
@@ -16,10 +20,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
-//404 page stuff
-//import NotFound from "../pages/NotFound";
-//<Route path="*" element={<NotFound />} />
 
 import Layout from "../Layout";
 
@@ -40,6 +40,7 @@ export default function Router() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </RouterContainer>
