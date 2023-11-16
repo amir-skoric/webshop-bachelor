@@ -1,6 +1,3 @@
-//imports
-const sessionCollection = require("../../models/sessionCollection");
-
 module.exports = async (req, res) => {
   try {
     //get session id
