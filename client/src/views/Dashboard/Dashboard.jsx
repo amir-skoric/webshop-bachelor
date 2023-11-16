@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Hello and welcome to the worlds best webshop builder!</h1>
+      <h1>Hello, {authUser.user.fName}</h1>
       <h3>Your E-mail</h3>
       <p>{authUser.user.email}</p>
       <h3>Your ID</h3>

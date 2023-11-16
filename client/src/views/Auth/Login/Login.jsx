@@ -1,31 +1,28 @@
 //imports
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import Error from "../../../components/Error/Error";
+import { useForm } from "react-hook-form";
 
-import "./Login.css";
+import "../../Auth/auth.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const { setAuthenticated, setAuthUser, error, setError } = useAuth();
 
-  async function submit(e) {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
       await axios
-        .post(
-          "http://localhost:4000/login",
-          {
-            email,
-            password,
-          },
-          {
-            withCredentials: true,
-          }
-        )
+        .post("http://localhost:4000/login", data, {
+          withCredentials: true,
+        })
         .then((res) => {
           if (res.status === 200) {
             setAuthUser(res.data.user);
@@ -35,38 +32,32 @@ const Login = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-  }
+  };
 
   return (
     <div className="login">
       <div className="container-login-register">
         <h1 className="h1-login-register">Login</h1>
-        <form action="POST" className="form-login-register">
+        <form onSubmit={handleSubmit(onSubmit)} className="form-login-register">
           <input
-            type="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            {...register("email", { required: "Please enter your e-mail" })}
             placeholder="E-mail"
-            name="email"
-            id="email"
-            required
+            type="email"
           />
+          <p className="form-error">{errors.email?.message}</p>
           <input
-            type="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            {...register("password", {
+              required: "Please enter your password",
+            })}
             placeholder="Password"
-            name="password"
-            id="password"
-            required
+            type="password"
           />
+          <p className="form-error">{errors.password?.message}</p>
           {error.length > 0 && <Error>{error}</Error>}
-          <input type="submit" onClick={submit} />
+          <input type="submit" />
         </form>
         <div className="container-click-here">
-          <p>Don't have an account yet? Click</p>
+          <p>Don't have an account? Click</p>
           <Link to="/register">here!</Link>
         </div>
       </div>

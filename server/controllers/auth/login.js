@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
 
       req.session.user = {
         user: {
+          fName: user.fName,
           id: user._id,
           email: user.email,
         },

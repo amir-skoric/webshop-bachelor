@@ -6,18 +6,18 @@ const bcrypt = require("bcrypt");
 module.exports = async (req, res) => {
   try {
     //check if an user with the chosen email exists
-    const userCheck = await userCollection.exists({ email: req.body.email });
+    const userCheck = await userCollection.exists({ email: req.body.data.email });
     if (userCheck) {
       return res.status(405).send({ error: "User already exists" });
     }
     //hashing the password with bcrypt
-    req.body.password = await bcrypt.hash(req.body.password, 10);
+    req.body.data.password = await bcrypt.hash(req.body.data.password, 10);
     //registering the user into the database collection
     userCollection
-      .create(req.body)
+      .create(req.body.data)
       .then((user) => res.json(user))
       .catch((error) => res.json(error));
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error: "Something went wrong. Please try again later" });
   }
 };

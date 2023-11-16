@@ -1,0 +1,117 @@
+.h1-login-register {
+    margin-bottom: 20px;
+}
+
+.first-last-name {
+    display: flex;
+    gap: 15px;
+}
+
+.first-name> input[type=text] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: solid 1px;
+  }
+
+  .last-name> input[type=text] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: solid 1px;
+  }
+
+  .first-name {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .last-name {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .first-last-name {
+    display: flex;
+  }
+
+.container-login-register {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: black;
+    border-radius: 25px;
+}
+
+.form-login-register {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-login-register > input[type=email] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: solid 1px;
+  }
+
+  .form-login-register > input[type=text] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: solid 1px;
+  }
+
+  .form-login-register > input[type=password] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: solid 1px;
+  }
+
+.form-login-register > input[type=submit] {
+    padding: 15px 30px;
+    background: rgba(98, 255, 98, 0.80);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition: all 200ms ease-in-out;
+    width: 100%;
+}
+
+.form-login-register > input[type=submit]:hover {
+    background: rgba(98, 255, 98, 1);
+    cursor: pointer;
+}
+
+.container-click-here {
+    display: flex;
+    font-family: "Roboto", sans-serif;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.container-click-here > a {
+    text-decoration: none;
+    color: rgb(98, 255, 98);
+}
+
+.form-error {
+    color: rgb(255, 70, 70);
+}
+
+.label-form {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+}

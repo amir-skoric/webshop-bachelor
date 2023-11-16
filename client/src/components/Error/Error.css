@@ -1,9 +1,10 @@
 .error {
-    padding: 15px;
+    padding: 10px 5px;
     text-align: center;
     color: white;
     background: rgb(255, 70, 70);
     border-radius: 10px;
     font-size: 15px;
     width: 100%;
+    margin-bottom: 10px
 }
