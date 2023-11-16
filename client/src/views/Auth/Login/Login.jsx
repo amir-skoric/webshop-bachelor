@@ -39,12 +39,14 @@ const Login = () => {
       <div className="container-login-register">
         <h1 className="h1-login-register">Login</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="form-login-register">
+        <label className="label-form">E-mail</label>
           <input
             {...register("email", { required: "Please enter your e-mail" })}
             placeholder="E-mail"
             type="email"
           />
           <p className="form-error">{errors.email?.message}</p>
+          <label className="label-form">Password</label>
           <input
             {...register("password", {
               required: "Please enter your password",
