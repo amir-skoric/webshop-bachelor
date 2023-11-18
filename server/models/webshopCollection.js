@@ -21,6 +21,9 @@ const webshopSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  createdBy: {
+    type: String
+  }
 });
 
 const webshopCollection = mongoose.model("webshops", webshopSchema);

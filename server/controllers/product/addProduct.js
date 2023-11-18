@@ -1,7 +1,7 @@
 //imports
 const productsCollection = require("../../models/productCollection")
 
-//register
+//add product
 module.exports = async (req, res) => {
   try {
   } catch (error) {

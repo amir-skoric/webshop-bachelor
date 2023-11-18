@@ -14,12 +14,10 @@ module.exports = async (req, res) => {
       delete user.password;
 
       req.session.user = {
-        user: {
-          fName: user.fName,
-          lName: user.lName,
-          id: user._id,
-          email: user.email,
-        },
+        fName: user.fName,
+        lName: user.lName,
+        id: user._id,
+        email: user.email,
       };
       req.session.isAuthenticated = true;
       res.status(200).json({

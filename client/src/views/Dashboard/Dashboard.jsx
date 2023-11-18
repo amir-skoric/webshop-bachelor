@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-import WebshopTable from "../../components/WebshopTable/WebshopTable";
+import WebshopTable from "../../components/Webshops/Webshops";
 
 const Dashboard = () => {
   const { authUser } = useAuth();
@@ -34,9 +34,9 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-banner">
-        <h1>Hello, {authUser.user.fName} {authUser.user.lName}</h1>
+        <h1>Hello, {authUser.fName} {authUser.lName}</h1>
         <h3>Your E-mail</h3>
-        <p>{authUser.user.email}</p>
+        <p>{authUser.email}</p>
         <button className="dashboard-button" onClick={signout}>Sign out</button>
       </div>
       <WebshopTable />

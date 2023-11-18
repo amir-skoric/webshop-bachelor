@@ -1,7 +1,7 @@
 //imports
 const webshopCollection = require("../../models/webshopCollection")
 
-//register
+//add webshop
 module.exports = async (req, res) => {
   try {
   } catch (error) {

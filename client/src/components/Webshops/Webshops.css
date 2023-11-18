@@ -1,0 +1,7 @@
+.webshopTable {
+    margin: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgb(224, 224, 224);
+}

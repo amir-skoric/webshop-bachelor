@@ -47,6 +47,7 @@ const addWebshop = require("./controllers/webshop/addWebshop");
 
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
+const getWebshops = require("./controllers/webshop/getWebshops");
 
 app.get("/", cors(), (req, res) => {
   res.send("You shouldn't be here...");
@@ -70,9 +71,12 @@ app.get("/signout", signout);
 app.get("/authCheck", authCheck);
 
 //WEBSHOP
+//get all by user
+app.get("/getWebshops", getWebshops)
+
 //add
-app.post("/addWebshop", authCheck, addWebshop);
+app.post("/addWebshop", addWebshop);
 
 //PRODUCT
 //add
-app.post("/addProduct", authCheck, addProduct);
+app.post("/addProduct", addProduct);
