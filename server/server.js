@@ -14,7 +14,7 @@ const corsConfig = {
   credentials: true,
 };
 
-app.set('trust proxy', 1)
+app.set("trust proxy", 1);
 
 app.use(cors(corsConfig));
 app.options("*", cors(corsConfig));
@@ -36,10 +36,17 @@ app.use(
 );
 
 //imports
+//AUTH
 const login = require("./controllers/auth/login");
 const register = require("./controllers/auth/register");
 const signout = require("./controllers/auth/signout");
 const authCheck = require("./controllers/auth/authCheck");
+
+//WEBSHOP
+const addWebshop = require("./controllers/webshop/addWebshop");
+
+//PRODUCT
+const addProduct = require("./controllers/product/addProduct");
 
 app.get("/", cors(), (req, res) => {
   res.send("You shouldn't be here...");
@@ -49,6 +56,7 @@ app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
 
+//AUTH
 //register
 app.post("/register", register);
 
@@ -60,3 +68,11 @@ app.get("/signout", signout);
 
 //auth check
 app.get("/authCheck", authCheck);
+
+//WEBSHOP
+//add
+app.post("/addWebshop", authCheck, addWebshop);
+
+//PRODUCT
+//add
+app.post("/addProduct", authCheck, addProduct);

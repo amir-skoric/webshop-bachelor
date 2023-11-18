@@ -1,3 +1,24 @@
-button {
-    color: black;
+.dashboard-banner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    gap: 10px;
+    background: linear-gradient(300deg,#0fce00,#00ffdd);
+    color: white;
+}
+
+.dashboard-button {
+    padding: 10px 30px;
+    background: transparent;
+    border-radius: 10px;
+    border: solid 3px white;
+    color: white;
+    transition: all 200ms ease-in-out;
+}
+
+.dashboard-button:hover {
+    background: RGBA(255,255,255,0.25);
+    cursor: pointer;
 }

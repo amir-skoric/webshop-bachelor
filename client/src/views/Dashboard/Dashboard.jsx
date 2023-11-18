@@ -1,8 +1,11 @@
+//imports
 import React from "react";
 import "./Dashboard.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+
+import WebshopTable from "../../components/WebshopTable/WebshopTable";
 
 const Dashboard = () => {
   const { authUser } = useAuth();
@@ -29,13 +32,14 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <h1>Hello, {authUser.user.fName}</h1>
-      <h3>Your E-mail</h3>
-      <p>{authUser.user.email}</p>
-      <h3>Your ID</h3>
-      <p>{authUser.user.id}</p>
-      <button onClick={signout}>Sign out</button>
+    <div className="dashboard">
+      <div className="dashboard-banner">
+        <h1>Hello, {authUser.user.fName} {authUser.user.lName}</h1>
+        <h3>Your E-mail</h3>
+        <p>{authUser.user.email}</p>
+        <button className="dashboard-button" onClick={signout}>Sign out</button>
+      </div>
+      <WebshopTable />
     </div>
   );
 };
