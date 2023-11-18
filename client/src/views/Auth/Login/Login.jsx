@@ -39,7 +39,7 @@ const Login = () => {
       <div className="container-login-register">
         <h1 className="h1-login-register">Login</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="form-login-register">
-        <label className="label-form">E-mail</label>
+          <label className="label-form">E-mail</label>
           <input
             {...register("email", { required: "Please enter your e-mail" })}
             placeholder="E-mail"
@@ -56,7 +56,7 @@ const Login = () => {
           />
           <p className="form-error">{errors.password?.message}</p>
           {error.length > 0 && <Error>{error}</Error>}
-          <input type="submit" />
+          <input type="submit" value="Login" />
         </form>
         <div className="container-click-here">
           <p>Don't have an account? Click</p>

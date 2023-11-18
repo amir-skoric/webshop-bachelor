@@ -46,26 +46,26 @@ const Register = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="form-login-register">
           <div className="first-last-name">
             <div className="first-name">
-            <label className="label-form">First Name</label>
-            <input
-              {...register("fName", {
-                required: "Please enter your first name",
-              })}
-              placeholder="First Name"
-              type="text"
-            />
-            <p className="form-error">{errors.fName?.message}</p>
+              <label className="label-form">First Name</label>
+              <input
+                {...register("fName", {
+                  required: "Please enter your first name",
+                })}
+                placeholder="First Name"
+                type="text"
+              />
+              <p className="form-error">{errors.fName?.message}</p>
             </div>
             <div className="last-name">
-            <label className="label-form">Last Name</label>
-            <input
-              {...register("lName", {
-                required: "Please enter your last name",
-              })}
-              placeholder="Last Name"
-              type="text"
-            />
-            <p className="form-error">{errors.lName?.message}</p>
+              <label className="label-form">Last Name</label>
+              <input
+                {...register("lName", {
+                  required: "Please enter your last name",
+                })}
+                placeholder="Last Name"
+                type="text"
+              />
+              <p className="form-error">{errors.lName?.message}</p>
             </div>
           </div>
           <label className="label-form">E-mail</label>
@@ -102,7 +102,7 @@ const Register = () => {
           />
           <p className="form-error">{errors.cfmPassword?.message}</p>
           {error.length > 0 && <Error>{error}</Error>}
-          <input type="submit" />
+          <input type="submit" value="Register" />
         </form>
         <div className="container-click-here">
           <p>Already have an account? Click</p>
