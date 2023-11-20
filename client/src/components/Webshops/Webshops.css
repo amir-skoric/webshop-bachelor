@@ -1,8 +1,26 @@
 .webshopTable {
-    margin: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 50px;
-    background: rgb(224, 224, 224);
+  margin: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  background: rgb(245, 245, 245);
+  border-radius: 15px;
+}
+
+.webshopButtons {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.webshopAddButton {
+  padding: 10px;
+  background: #20f510;
+  border: none;
+  color: white;
+}
+
+.webshopAddButton:hover {
+  cursor: pointer;
 }
