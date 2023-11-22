@@ -5,13 +5,12 @@ import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 
 //webshop add
-import AddWebshop from "../WebshopAdd/WebshopAdd"
+import AddWebshop from "../WebshopAdd/WebshopAdd";
 
 const WebshopTable = () => {
   const [webshops, setWebshops] = useState({});
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowpopup] = useState(false);
-
 
   //get the current users webshops from the database
   async function getWebshops() {
@@ -28,7 +27,7 @@ const WebshopTable = () => {
   }
 
   function addWebshopPopup() {
-    setShowpopup(true)
+    setShowpopup(true);
   }
 
   useEffect(() => {
@@ -41,16 +40,33 @@ const WebshopTable = () => {
         <button onClick={addWebshopPopup} className="webshopAddButton">
           Create a Webshop
         </button>
-        {showPopup && <AddWebshop />}
+        {showPopup && <AddWebshop showPopup={setShowpopup}/>}
+      </div>
+      <div className="webshopTableInfo">
+        <p>Name</p>
+        <p>Description</p>
+        <p>Color</p>
+        <p>Products</p>
+        <p>Date</p>
       </div>
       {!loading ? (
         webshops.map((item) => {
-          return <p style={{ color: item.color}} key={item._id}>{item.name}</p>
+          return (
+            <div className="webshopInfo" key={item._id}>
+              <p>{item.name}</p>
+              <p>{item.description.substring(0, 10)}</p>
+              <p style={{ color: item.color }}>■</p>
+              <p>{item.products.length}</p>
+              <p>{item.createdAt.substring(0, 10)}</p>
+            </div>
+          );
         })
       ) : (
         <Spinner />
       )}
-      { webshops.length === 0 && <p>You have no webshops. Create one to get started.</p>}
+      {webshops.length === 0 && (
+        <p>You have no webshops. Create one to get started.</p>
+      )}
     </div>
   );
 };

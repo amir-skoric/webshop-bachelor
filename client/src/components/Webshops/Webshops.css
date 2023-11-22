@@ -6,6 +6,36 @@
   padding: 50px;
   background: rgb(245, 245, 245);
   border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.webshopTableInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 0;
+  border-bottom: 2px solid rgb(219, 219, 219);
+  padding-bottom: 10px;
+}
+
+.webshopTableInfo > p {
+  font-weight: 600;
+  flex-basis: 100%;
+}
+
+.webshopInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 0;
+  background: rgb(233, 233, 233);
+  border-radius: 5px;
+}
+
+.webshopInfo > p {
+  flex-basis: 100%;
+  cursor: pointer;
 }
 
 .webshopButtons {

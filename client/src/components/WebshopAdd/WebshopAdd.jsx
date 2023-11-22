@@ -1,14 +1,12 @@
 //import
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./WebshopAdd.css";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/AuthContext";
 import Error from "../Error/Error";
 
-const WebshopAdd = () => {
-  const navigate = useNavigate();
+const WebshopAdd = ({showPopup}) => {
 
   const {
     register,
@@ -35,6 +33,11 @@ const WebshopAdd = () => {
       setError(error.response.data.error);
     }
   };
+
+  const closeFunc = () => {
+    showPopup(false)
+  }
+
   return (
     <div className="webshopadd">
       <div className="webshopadd-container">
@@ -72,6 +75,7 @@ const WebshopAdd = () => {
           {error.length > 0 && <Error>{error}</Error>}
           <input type="submit" value="Create" />
         </form>
+        <button onClick={closeFunc} className="webshopadd-close">Close</button>
       </div>
     </div>
   );
