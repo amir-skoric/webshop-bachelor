@@ -6,8 +6,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/AuthContext";
 import Error from "../Error/Error";
 
-const WebshopAdd = ({showPopup}) => {
-
+const WebshopAdd = ({ showPopup }) => {
   const {
     register,
     handleSubmit,
@@ -33,10 +32,6 @@ const WebshopAdd = ({showPopup}) => {
       setError(error.response.data.error);
     }
   };
-
-  const closeFunc = () => {
-    showPopup(false)
-  }
 
   return (
     <div className="webshopadd">
@@ -75,7 +70,9 @@ const WebshopAdd = ({showPopup}) => {
           {error.length > 0 && <Error>{error}</Error>}
           <input type="submit" value="Create" />
         </form>
-        <button onClick={closeFunc} className="webshopadd-close">Close</button>
+        <button onClick={() => showPopup(false)} className="webshopadd-close">
+          Close
+        </button>
       </div>
     </div>
   );
