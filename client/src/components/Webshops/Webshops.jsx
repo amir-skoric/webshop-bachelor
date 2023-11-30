@@ -4,6 +4,8 @@ import "./Webshops.css";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 
+import { Link } from "react-router-dom";
+
 //webshop add
 import AddWebshop from "../WebshopAdd/WebshopAdd";
 
@@ -22,7 +24,7 @@ const WebshopTable = () => {
         }
       });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
 
@@ -40,7 +42,7 @@ const WebshopTable = () => {
         <button onClick={addWebshopPopup} className="webshopAddButton">
           Create a Webshop
         </button>
-        {showPopup && <AddWebshop showPopup={setShowpopup}/>}
+        {showPopup && <AddWebshop showPopup={setShowpopup} />}
       </div>
       <div className="webshopTableInfo">
         <p>Name</p>
@@ -52,12 +54,14 @@ const WebshopTable = () => {
       {!loading ? (
         webshops.map((item) => {
           return (
-            <div className="webshopInfo" key={item._id}>
-              <p>{item.name}</p>
-              <p>{item.description.substring(0, 10)}</p>
-              <p style={{ color: item.color }}>■</p>
-              <p>{item.products.length}</p>
-              <p>{item.createdAt.substring(0, 10)}</p>
+            <div key={item._id}>
+              <Link className="webshopInfo" to={`/webshops/${item.name}`}>
+                <p>{item.name}</p>
+                <p>{item.description.substring(0, 5) + "..."}</p>
+                <p style={{ color: item.color }}>■</p>
+                <p>{item.products.length}</p>
+                <p>{item.createdAt.substring(0, 10)}</p>
+              </Link>
             </div>
           );
         })
