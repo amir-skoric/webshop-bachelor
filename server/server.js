@@ -46,6 +46,7 @@ const authCheck = require("./controllers/auth/authCheck");
 const addWebshop = require("./controllers/webshop/addWebshop");
 const getWebshops = require("./controllers/webshop/getWebshops");
 const getWebshop = require("./controllers/webshop/getWebshop");
+const deleteWebshop = require("./controllers/webshop/deleteWebshop")
 
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
@@ -78,8 +79,11 @@ app.get("/getWebshops", getWebshops)
 //get one webshop
 app.get("/getWebshop:webshop", getWebshop)
 
-//add
+//add webshop
 app.post("/addWebshop", addWebshop);
+
+//delete webshop
+app.delete("/deleteWebshop", deleteWebshop)
 
 //PRODUCT
 //add

@@ -1,6 +1,5 @@
 //imports
 const webshopCollection = require("../../models/webshopCollection");
-const userCollection = require("../../models/userCollection.js");
 
 //add webshop
 module.exports = async (req, res) => {
@@ -9,7 +8,6 @@ module.exports = async (req, res) => {
     const webshopCheck = await webshopCollection.exists({
       name: req.body.data.name,
     });
-    console.log(req.body.data);
 
     if (webshopCheck) {
       return res

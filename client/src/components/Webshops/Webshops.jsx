@@ -32,6 +32,25 @@ const WebshopTable = () => {
     setShowpopup(true);
   }
 
+  async function deleteWebshop(id, name) {
+    if (window.confirm(`Are you sure you want to delete ${name}?`))
+      try {
+        await axios
+          .delete("http://localhost:4000/deleteWebshop", {
+            data: { webshopId: id },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert(res.data);
+              setLoading(true);
+              getWebshops();
+            }
+          });
+      } catch (error) {
+        alert(error.response.data.error);
+      }
+  }
+
   useEffect(() => {
     getWebshops();
   }, []);
@@ -54,14 +73,21 @@ const WebshopTable = () => {
       {!loading ? (
         webshops.map((item) => {
           return (
-            <div key={item._id}>
-              <Link className="webshopInfo" to={`/webshops/${item.name}`}>
-                <p>{item.name}</p>
-                <p>{item.description.substring(0, 5) + "..."}</p>
-                <p style={{ color: item.color }}>■</p>
-                <p>{item.products.length}</p>
-                <p>{item.createdAt.substring(0, 10)}</p>
-              </Link>
+            <div className="webshopsContainer" key={item._id}>
+              <div className="webshops">
+                <Link className="webshopInfo" to={`/webshops/${item.name}`}>
+                  <p>{item.name}</p>
+                  <p>{item.description.substring(0, 5) + "..."}</p>
+                  <p style={{ color: item.color }}>■</p>
+                  <p>{item.products.length}</p>
+                  <p>{item.createdAt.substring(0, 10)}</p>
+                </Link>
+              </div>
+              <div className="webshopsDelete">
+                <button onClick={() => deleteWebshop(item._id, item.name)}>
+                  Delete
+                </button>
+              </div>
             </div>
           );
         })
