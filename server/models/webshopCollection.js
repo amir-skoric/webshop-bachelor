@@ -15,7 +15,10 @@ const webshopSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    bannerImage: String,
+    bannerImage: {
+      type: String,
+      required: true,
+    },
     categories: {
       type: Object,
       default: {},

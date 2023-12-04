@@ -26,12 +26,15 @@ const Webshop = () => {
     }
   }
 
+  console.log(webshopData.bannerImage)
+
   useEffect(() => {
     getWebshop();
   }, []);
 
   return (
     <div>
+      <img src={webshopData.bannerImage} height="200" width="200"></img>
       <h1>{webshopData.name}</h1>
       <p>{webshopData.description}</p>
       <p>{webshopData.createdBy}</p>

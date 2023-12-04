@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
     const webshopCheck = await webshopCollection.exists({
       name: req.body.data.name,
     });
-
     if (webshopCheck) {
       return res
         .status(405)
@@ -20,9 +19,10 @@ module.exports = async (req, res) => {
         name: req.body.data.name,
         description: req.body.data.description,
         color: req.body.data.color,
+        bannerImage: req.body.data.bannerImage,
         createdBy: req.session.user.email,
       })
-      .catch((error) => res.json(error));
+      .catch((error) => console.log(error));
     return res.status(200).json({ message: "Webshop successfully created" });
   } catch (error) {
     return res

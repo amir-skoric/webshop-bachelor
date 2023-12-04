@@ -1,5 +1,5 @@
 //import
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./WebshopAdd.css";
 import { useForm } from "react-hook-form";
@@ -13,24 +13,37 @@ const WebshopAdd = ({ showPopup }) => {
     formState: { errors },
   } = useForm();
 
-  const { error, setError } = useAuth();
+  const [error, setError] = useState("");
 
   const onSubmit = async (data) => {
-    try {
-      await axios
-        .post("http://localhost:4000/addWebshop", {
-          data,
-          withCredentials: true,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            alert("Webshop successfully created");
-            window.location.reload();
-          }
-        });
-    } catch (error) {
-      setError(error.response.data.error);
-    }
+    //if an image is selected then:
+    //convert image to base64 and set it as a state to use later
+    const reader = new FileReader();
+    reader.readAsDataURL(data.bannerImage[0]);
+    reader.onload = async function () {
+      try {
+        await axios
+          .post("http://localhost:4000/addWebshop", {
+            data: {
+              name: data.name,
+              description: data.description,
+              color: data.color,
+              bannerImage:
+                reader.result ||
+                "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+            },
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert("Webshop successfully created");
+              window.location.reload();
+            }
+          });
+      } catch (error) {
+        setError(error.response.data.error);
+      }
+    };
   };
 
   return (
@@ -67,6 +80,18 @@ const WebshopAdd = ({ showPopup }) => {
             type="color"
           />
           <p className="form-error">{errors.color?.message}</p>
+          <label className="label-form">Banner Image</label>
+          <input
+            {...register("bannerImage", {
+              required: "Upload a banner image (jpg, png)",
+            })}
+            placeholder="Upload an image"
+            type="file"
+            accept=".png, .jpg, .jpeg"
+          />
+          <p className="form-error" style={{ marginBottom: 20 }}>
+            {errors.bannerImage?.message}
+          </p>
           {error.length > 0 && <Error>{error}</Error>}
           <input type="submit" value="Create" />
         </form>
