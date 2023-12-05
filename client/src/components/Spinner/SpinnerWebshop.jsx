@@ -1,7 +1,7 @@
 import React from 'react';
-import "./Spinner.css"
+import "./SpinnerWebshop.css"
 
-const Spinner = () => {
+const SpinnerWebshop = () => {
     return (
         <div className="spinner-container">
             <span className="spinner"></span>
@@ -10,4 +10,4 @@ const Spinner = () => {
     );
 }
 
-export default Spinner;
+export default SpinnerWebshop;

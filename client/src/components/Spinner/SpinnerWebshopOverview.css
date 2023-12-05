@@ -1,4 +1,4 @@
-.spinner {
+.spinner-overview {
   width: 36px;
   height: 36px;
   border: 5px solid #20f510;
@@ -9,7 +9,7 @@
   animation: rotation 1s linear infinite;
 }
 
-.spinner-container {
+.spinner-container-overview {
   display: flex;
   justify-content: center;
   align-items: center;

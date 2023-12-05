@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Webshop.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Spinner from "../../components/Spinner/SpinnerWebshop";
 
 const Webshop = () => {
   const { webshop } = useParams();
@@ -14,7 +15,7 @@ const Webshop = () => {
   async function getWebshop() {
     try {
       await axios
-        .get("http://localhost:4000/getWebshop"+webshop)
+        .get("http://localhost:4000/getWebshop" + webshop)
         .then((res) => {
           if (res.status === 200) {
             setWebshopData(res.data);
@@ -26,18 +27,25 @@ const Webshop = () => {
     }
   }
 
-  console.log(webshopData.bannerImage)
-
   useEffect(() => {
     getWebshop();
   }, []);
 
   return (
-    <div>
-      <img src={webshopData.bannerImage} height="200" width="200"></img>
-      <h1>{webshopData.name}</h1>
-      <p>{webshopData.description}</p>
-      <p>{webshopData.createdBy}</p>
+    <div className="webshopFrontpage">
+      {loading && <Spinner />}
+      <div
+        className="webshopBannerImage"
+        style={{ backgroundImage: `url(${webshopData.bannerImage})` }}
+      >
+        <div className="webshopBannerContainer">
+          <h1>{webshopData.name}</h1>
+          <p>{webshopData.description}</p>
+        </div>
+      </div>
+      <h1>Products</h1>
+      <h1>test</h1>
+      <h1>test</h1>
     </div>
   );
 };

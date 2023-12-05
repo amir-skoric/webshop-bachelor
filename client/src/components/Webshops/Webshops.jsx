@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./Webshops.css";
 import axios from "axios";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../Spinner/SpinnerWebshopOverview";
 
 import { Link } from "react-router-dom";
 
@@ -92,7 +92,7 @@ const WebshopTable = () => {
           );
         })
       ) : (
-        <Spinner />
+        <Spinner  />
       )}
       {webshops.length === 0 && (
         <p>You have no webshops. Create one to get started.</p>

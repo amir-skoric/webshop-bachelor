@@ -1,0 +1,45 @@
+.webshopBannerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.webshopBannerContainer p {
+  z-index: 1;
+}
+
+.webshopBannerContainer h1 {
+  z-index: 1;
+}
+
+.webshopBannerImage {
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1;}
+}
+
+.webshopBannerImage:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
+  transition: all 200ms ease-in-out
+}
