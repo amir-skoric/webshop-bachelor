@@ -33,7 +33,11 @@ const WebshopTable = () => {
   }
 
   async function deleteWebshop(id, name) {
-    if (window.confirm(`Are you sure you want to delete ${name}?`))
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${name}? This will also delete all products assosiated with your store`
+      )
+    )
       try {
         await axios
           .delete("http://localhost:4000/deleteWebshop", {

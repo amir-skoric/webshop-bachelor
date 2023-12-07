@@ -32,8 +32,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 10px;
-  background: rgb(245, 245, 245);
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   margin: 50px;
   border-radius: 15px;
 }
@@ -85,5 +83,40 @@
 
 .form-webshopEdit > input[type="submit"]:hover {
   background: rgba(98, 121, 255, 1);
+  cursor: pointer;
+}
+
+.productsEditPage {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+  align-content: center;
+  gap: 50px;
+  padding: 20px;
+}
+
+.productsEditOverview > img {
+  height: 200px;
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.productsEditOverview p:nth-child(4) {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.productsEditDelete > button {
+  padding: 15px 20px;
+  background: rgba(255, 98, 98, 0.8);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 200ms ease-in-out;
+  width: 100%;
+}
+
+.productsEditDelete > button:hover {
+  background: rgba(255, 98, 98, 1);
   cursor: pointer;
 }

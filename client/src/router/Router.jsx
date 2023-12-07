@@ -7,7 +7,7 @@ import Dashboard from "../views/Dashboard/Dashboard";
 
 //webshop
 import WebshopFrontpage from "../views/Webshop/WebshopFrontPage/WebshopFrontpage";
-import WebshopEdit from "../views/Webshop/WebshopFrontPage/WebshopEdit/WebshopEdit";
+import WebshopEdit from "../views/Webshop/WebshopEdit/WebshopEdit";
 
 import NotFound from "../views/NotFound/NotFound";
 

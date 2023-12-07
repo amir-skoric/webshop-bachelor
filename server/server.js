@@ -51,7 +51,8 @@ const updateWebshop = require("./controllers/webshop/updateWebshop");
 
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
-const getProducts = require("./controllers/product/getProducts")
+const getProducts = require("./controllers/product/getProducts");
+const deleteProduct = require("./controllers/product/deleteProduct")
 
 app.get("/", cors(), (req, res) => {
   res.send("You shouldn't be here...");
@@ -95,4 +96,7 @@ app.post("/updateWebshop", updateWebshop);
 app.post("/addProduct", addProduct);
 
 //get all products by webshop
-app.get("/getProducts", getProducts)
+app.get("/getProducts", getProducts);
+
+//delete product
+app.delete("/deleteProduct", deleteProduct);

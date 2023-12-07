@@ -4,10 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./webshopEdit.css";
 import { useForm } from "react-hook-form";
-import Error from "../../../../components/Error/Error";
+import Error from "../../../components/Error/Error";
 
-import Spinner from "../../../../components/Spinner/SpinnerWebshopOverview/";
-import AddProduct from "../../../../components/Product/AddProduct/AddProduct";
+import Spinner from "../../../components/Spinner/SpinnerWebshopOverview/";
+import AddProduct from "../../../components/Product/AddProduct/AddProduct";
 
 const WebshopEdit = () => {
   //used to navigate back to previous page
@@ -56,6 +56,24 @@ const WebshopEdit = () => {
     } catch (error) {
       alert(error);
     }
+  }
+
+  //delete product function
+  async function deleteProduct(id, name) {
+    if (window.confirm(`Are you sure you want to delete ${name}?`))
+      try {
+        await axios
+          .delete("http://localhost:4000/deleteProduct", {
+            data: { productId: id, webshop: webshop.webshopData._id },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert(res.data.message);
+            }
+          });
+      } catch (error) {
+        alert(error);
+      }
   }
 
   useEffect(() => {
@@ -175,29 +193,43 @@ const WebshopEdit = () => {
       )}
       <div className="webshopEditProducts">
         <h1>My products</h1>
+
+        <div className="productsEditPage">
+          {!loading ? (
+            products.map((item) => {
+              return (
+                <div className="productsContainerEditPage" key={item._id}>
+                  <div className="productsEditOverview">
+                    <img src={item.image}></img>
+                    <h3>{item.name}</h3>
+                    <p>{item.description.substring(0, 20) + "..."}</p>
+                    <p style={{ color: webshop.webshopData.color }}>
+                      ${item.price}
+                    </p>
+                  </div>
+                  <div className="productsEditDelete">
+                    <button
+                      onClick={() =>
+                        deleteProduct(item._id, item.name, item.createdBy)
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <Spinner />
+          )}
+        </div>
+        {products.length === 0 && (
+          <p style={{ margin: 50 }}>
+            You have no products. Create one to get started.
+          </p>
+        )}
       </div>
-      {!loading ? (
-        products.map((item) => {
-          return (
-            <div className="productsContainerEditPage" key={item._id}>
-              <div className="productsEditOverview">
-                <p>{item.name}</p>
-                <img src={item.image}></img>
-                <p>{item.description.substring(0, 5) + "..."}</p>
-                <p>{item.price}</p>
-              </div>
-              <div className="productsEditDelete">
-                <button>Delete</button>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <Spinner />
-      )}
-      {products.length === 0 && (
-        <p style={{margin: 50}}>You have no products. Create one to get started.</p>
-      )}
+
       <AddProduct webshopId={webshop.webshopData._id} />
     </div>
   );

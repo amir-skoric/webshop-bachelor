@@ -4,7 +4,6 @@ const webshopCollection = require("../../models/webshopCollection");
 
 //add product
 module.exports = async (req, res) => {
-  console.log(req.body.data.webshop);
   try {
     productsCollection
       .create({
