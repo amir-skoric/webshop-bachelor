@@ -90,7 +90,7 @@ const AddProduct = (webshopId) => {
           {errors.image?.message}
         </p>
         {error.length > 0 && <Error>{error}</Error>}
-        <input type="submit" value="Save changes" />
+        <input type="submit" value="Add Product" />
       </form>
     </div>
   );
