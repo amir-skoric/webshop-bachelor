@@ -196,7 +196,7 @@ const WebshopEdit = () => {
         <Spinner />
       )}
       {products.length === 0 && (
-        <p>You have no webshops. Create one to get started.</p>
+        <p style={{margin: 50}}>You have no products. Create one to get started.</p>
       )}
       <AddProduct webshopId={webshop.webshopData._id} />
     </div>

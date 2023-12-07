@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     if (!data) {
       return res
         .status(204)
-        .json({ error: "You have no webshop. Create one to get started" });
+        .json({ error: "You have no products. Create one to get started" });
     } else {
       return res.status(200).send(data);
     }
