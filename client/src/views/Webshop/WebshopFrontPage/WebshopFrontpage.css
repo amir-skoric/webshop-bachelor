@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
   color: white;
 }
 
@@ -16,6 +16,7 @@
 }
 
 .webshopBannerImage {
+  height: 100vh;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -23,6 +24,7 @@
   align-items: center;
   margin-bottom: 50px;
   animation: fadeIn 2s;
+  box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
 }
 
 @keyframes fadeIn {
@@ -30,16 +32,34 @@
   100% { opacity: 1;}
 }
 
-.webshopBannerImage:after {
+.webshopBannerImage::before {
   content: "";
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   height: 100vh;
   display: block;
   background-color: rgba(0, 0, 0, 0.3);
-  box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
-  transition: all 200ms ease-in-out
+  transition: all 200ms ease-in-out;
+}
+
+.webshopEditBanner {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  padding: 15px;
+  background: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.webshopEditBanner > a {
+  font-family: "Roboto", sans-serif;
+  color: rgb(129, 129, 129);
 }

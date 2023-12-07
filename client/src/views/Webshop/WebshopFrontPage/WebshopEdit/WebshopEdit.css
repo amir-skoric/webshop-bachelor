@@ -1,0 +1,89 @@
+.webshopEdit {
+  padding: 50px;
+}
+
+.webshopEditBackButton {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  border: none;
+  background: white;
+  text-decoration: underline;
+}
+
+.webshopEditBackButton:hover {
+  cursor: pointer;
+}
+
+.webshopEditProducts {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background: rgb(245, 245, 245);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: 50px;
+  border-radius: 15px;
+}
+
+.webshopEditInfo {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background: rgb(245, 245, 245);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: 50px;
+  border-radius: 15px;
+}
+
+.form-webshopEdit > img {
+  height: 100px;
+  width: 100px;
+}
+
+.form-webshopEdit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-webshopEdit > input[type="email"] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: solid 1px;
+}
+
+.form-webshopEdit > input[type="text"] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: solid 1px;
+}
+
+.form-webshopEdit > textarea[type="text"] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: solid 1px;
+}
+
+.form-webshopEdit > input[type="submit"] {
+  padding: 15px 30px;
+  background: rgba(98, 121, 255, 0.8);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 200ms ease-in-out;
+  width: 100%;
+}
+
+.form-webshopEdit > input[type="submit"]:hover {
+  background: rgba(98, 121, 255, 1);
+  cursor: pointer;
+}

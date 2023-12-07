@@ -92,7 +92,7 @@ const WebshopTable = () => {
           );
         })
       ) : (
-        <Spinner  />
+        <Spinner />
       )}
       {webshops.length === 0 && (
         <p>You have no webshops. Create one to get started.</p>

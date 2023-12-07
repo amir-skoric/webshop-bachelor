@@ -18,7 +18,7 @@ app.set("trust proxy", 1);
 
 app.use(cors(corsConfig));
 app.options("*", cors(corsConfig));
-app.use(express.json({limit: '50mb', extended: true}));
+app.use(express.json({ limit: "50mb", extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
@@ -46,10 +46,12 @@ const authCheck = require("./controllers/auth/authCheck");
 const addWebshop = require("./controllers/webshop/addWebshop");
 const getWebshops = require("./controllers/webshop/getWebshops");
 const getWebshop = require("./controllers/webshop/getWebshop");
-const deleteWebshop = require("./controllers/webshop/deleteWebshop")
+const deleteWebshop = require("./controllers/webshop/deleteWebshop");
+const updateWebshop = require("./controllers/webshop/updateWebshop");
 
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
+const getProducts = require("./controllers/product/getProducts")
 
 app.get("/", cors(), (req, res) => {
   res.send("You shouldn't be here...");
@@ -74,17 +76,23 @@ app.get("/authCheck", authCheck);
 
 //WEBSHOP
 //get all by user
-app.get("/getWebshops", getWebshops)
+app.get("/getWebshops", getWebshops);
 
 //get one webshop
-app.get("/getWebshop:webshop", getWebshop)
+app.get("/getWebshop:webshop", getWebshop);
 
 //add webshop
 app.post("/addWebshop", addWebshop);
 
 //delete webshop
-app.delete("/deleteWebshop", deleteWebshop)
+app.delete("/deleteWebshop", deleteWebshop);
+
+//update webshop
+app.post("/updateWebshop", updateWebshop);
 
 //PRODUCT
 //add
 app.post("/addProduct", addProduct);
+
+//get all products by webshop
+app.get("/getProducts", getProducts)

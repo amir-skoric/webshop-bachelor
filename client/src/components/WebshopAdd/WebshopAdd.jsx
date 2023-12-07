@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./WebshopAdd.css";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../contexts/AuthContext";
 import Error from "../Error/Error";
 
 const WebshopAdd = ({ showPopup }) => {
+  //react hook form prerequisites
   const {
     register,
     handleSubmit,
@@ -29,14 +29,13 @@ const WebshopAdd = ({ showPopup }) => {
               description: data.description,
               color: data.color,
               bannerImage:
-                reader.result ||
-                "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+                reader.result
             },
             withCredentials: true,
           })
           .then((res) => {
             if (res.status === 200) {
-              alert("Webshop successfully created");
+              alert(res.data.message);
               window.location.reload();
             }
           });

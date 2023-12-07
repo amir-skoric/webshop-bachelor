@@ -10,7 +10,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setAuthUser] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

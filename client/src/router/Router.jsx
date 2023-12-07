@@ -4,7 +4,10 @@ import Login from "../views/Auth/Login/Login";
 import Register from "../views/Auth/Register/Register";
 import Frontpage from "../views/FrontPage/FrontPage";
 import Dashboard from "../views/Dashboard/Dashboard";
-import Webshop from "../views/Webshop/Webshop";
+
+//webshop
+import WebshopFrontpage from "../views/Webshop/WebshopFrontPage/WebshopFrontpage";
+import WebshopEdit from "../views/Webshop/WebshopFrontPage/WebshopEdit/WebshopEdit";
 
 import NotFound from "../views/NotFound/NotFound";
 
@@ -31,6 +34,7 @@ export default function Router() {
           <Route element={<PrivateRoute />}>
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} exact />
+              <Route path="/webshops/:webshop/edit" element={<WebshopEdit />} />
             </Route>
           </Route>
           <Route element={<AnonymousRoute />}>
@@ -38,7 +42,7 @@ export default function Router() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Route>
-          <Route path="/webshops/:webshop" element={<Webshop />} />
+          <Route path="/webshops/:webshop" element={<WebshopFrontpage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
