@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 //webshop add
 import AddWebshop from "../WebshopAdd/WebshopAdd";
 
-const WebshopTable = () => {
+const Webshops = () => {
   const [webshops, setWebshops] = useState({});
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowpopup] = useState(false);
@@ -24,7 +24,7 @@ const WebshopTable = () => {
         }
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -79,7 +79,11 @@ const WebshopTable = () => {
           return (
             <div className="webshopsContainer" key={item._id}>
               <div className="webshops">
-                <Link className="webshopInfo" to={`/webshops/${item.name}`}>
+                <Link
+                  className="webshopInfo"
+                  to={`/webshops/${item.name}`}
+                  target="_blank"
+                >
                   <p>{item.name}</p>
                   <p>{item.description.substring(0, 15) + "..."}</p>
                   <p style={{ color: item.color }}>■</p>
@@ -109,4 +113,4 @@ const WebshopTable = () => {
   );
 };
 
-export default WebshopTable;
+export default Webshops;

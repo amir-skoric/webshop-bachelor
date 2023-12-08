@@ -86,7 +86,7 @@
   cursor: pointer;
 }
 
-.productsEditPage {
+.productsEditPage:not(span) {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-content: center;

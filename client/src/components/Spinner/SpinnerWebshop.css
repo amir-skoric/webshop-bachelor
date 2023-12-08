@@ -10,6 +10,9 @@
 }
 
 .spinner-container {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
   display: flex;
   justify-content: center;
   align-items: center;

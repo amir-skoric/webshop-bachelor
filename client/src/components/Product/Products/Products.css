@@ -1,0 +1,77 @@
+.productsWebshop {
+  margin: 15%;
+  margin-top: 100px;
+  background: rgb(245, 245, 245);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 50px;
+  opacity: 0;
+  animation: fadeInProducts 1s 1s forwards;
+  border-radius: 5px;
+}
+
+@keyframes fadeInProducts {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.productsOverviewContainer {
+  display: grid;
+  gap: 50px 30px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.productsOverviewContainer a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: inherit;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 0px;
+  transition: all 100ms ease-in-out;
+  transform: scale(1)
+}
+
+.productsOverviewContainer a:hover {
+  background: #dbdbdb;
+  box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
+  transform: scale(1.05)
+}
+
+.productsOverviewContainer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.productOverview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px 30px;
+  overflow: hidden;
+}
+
+.productOverview > img {
+  height: 350px;
+  object-fit: cover;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.webshopAddToCartButton {
+  padding: 15px 0;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  width: 100%;
+  transition: all 200ms ease-in-out;
+}
+
+.webshopAddToCartButton:hover {
+  box-shadow: inset 0 0 0 /*spread-radius:*/ 100px #49494977;
+  cursor: pointer;
+}

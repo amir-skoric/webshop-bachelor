@@ -1,23 +1,31 @@
 //imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./webshopEdit.css";
 import { useForm } from "react-hook-form";
 import Error from "../../../components/Error/Error";
 
+//add product import
 import AddProduct from "../../../components/Product/AddProduct/AddProduct";
+
+//get products api utility
+import getProducts from "../../../api/Product/getProducts";
+
+//spinner/loader
+import SpinnerWebshopOverview from "../../../components/Spinner/SpinnerWebshopOverview";
 
 const WebshopEdit = () => {
   //used to navigate back to previous page
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
+  const [products, setProducts] = useState({});
+  const [loading, setLoading] = useState(true);
 
   //get state from webshop
   const location = useLocation();
   const webshop = location.state.webshopData;
-  const products = location.state.products;
 
   //react hook form prerequisites
   const {
@@ -32,14 +40,10 @@ const WebshopEdit = () => {
     },
   });
 
+  //doesn't actually work
   function webshopCheck() {
-    if (
-      webshop && products === null
-    ) {
+    if (webshop === null) {
       return <h2>Unauthorized access</h2>;
-    }
-    else {
-      
     }
   }
 
@@ -58,7 +62,10 @@ const WebshopEdit = () => {
           .then((res) => {
             if (res.status === 200) {
               alert(res.data.message);
-              navigate("/webshops/" + webshop.name, { replace: true });
+              getProducts(webshop._id).then((data) => {
+                setProducts(data);
+                setLoading(false);
+              });
             }
           });
       } catch (error) {
@@ -79,7 +86,7 @@ const WebshopEdit = () => {
       reader.onload = async function () {
         try {
           await axios
-            .post("http://localhost:4000/updateWebshop", {
+            .put("http://localhost:4000/updateWebshop", {
               data: {
                 _id: data._id,
                 name: data.name,
@@ -104,7 +111,7 @@ const WebshopEdit = () => {
       //if no new image is selected, use the current one saved in the database
       try {
         await axios
-          .post("http://localhost:4000/updateWebshop", {
+          .put("http://localhost:4000/updateWebshop", {
             data: {
               _id: data._id,
               name: data.name,
@@ -125,6 +132,19 @@ const WebshopEdit = () => {
       }
     }
   };
+
+  //get products from the webshop
+  useEffect(() => {
+    getProducts(webshop._id)
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        alert(error);
+        setLoading(false);
+      });
+  }, [webshop]);
 
   return (
     <div className="webshopEdit">
@@ -181,29 +201,32 @@ const WebshopEdit = () => {
       )}
       <div className="webshopEditProducts">
         <h1>My products</h1>
-
         <div className="productsEditPage">
-          {products.map((item) => {
-            return (
-              <div className="productsContainerEditPage" key={item._id}>
-                <div className="productsEditOverview">
-                  <img src={item.image}></img>
-                  <h3>{item.name}</h3>
-                  <p>{item.description.substring(0, 20) + "..."}</p>
-                  <p style={{ color: webshop.color }}>${item.price}</p>
+          {!loading ? (
+            products.map((item) => {
+              return (
+                <div className="productsContainerEditPage" key={item._id}>
+                  <div className="productsEditOverview">
+                    <img src={item.image}></img>
+                    <h3>{item.name}</h3>
+                    <p>{item.description.substring(0, 20) + "..."}</p>
+                    <p style={{ color: webshop.color }}>${item.price}</p>
+                  </div>
+                  <div className="productsEditDelete">
+                    <button
+                      onClick={() =>
+                        deleteProduct(item._id, item.name, item.createdBy)
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div className="productsEditDelete">
-                  <button
-                    onClick={() =>
-                      deleteProduct(item._id, item.name, item.createdBy)
-                    }
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <SpinnerWebshopOverview />
+          )}
         </div>
         {products.length === 0 && (
           <p>You have no products. Create one to get started.</p>
@@ -215,6 +238,4 @@ const WebshopEdit = () => {
   );
 };
 
-//delete for later
-//onClick={() => deleteWebshop(item._id, item.name)}
 export default WebshopEdit;

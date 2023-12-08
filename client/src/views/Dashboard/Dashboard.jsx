@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-import WebshopTable from "../../components/Webshops/Webshops";
+import Webshops from "../../components/Webshops/Webshops";
 
 const Dashboard = () => {
   const { authUser } = useAuth();
@@ -19,7 +19,7 @@ const Dashboard = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            alert("Logged out");
+            alert(res.data.message);
             navigate("/login");
             window.location.reload();
           } else {
@@ -68,7 +68,7 @@ const Dashboard = () => {
           Delete User
         </button>
       </div>
-      <WebshopTable />
+      <Webshops />
     </div>
   );
 };

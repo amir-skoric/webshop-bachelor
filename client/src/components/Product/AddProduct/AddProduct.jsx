@@ -2,12 +2,10 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "../../Error/Error";
 
 const AddProduct = (webshopId) => {
-  const navigate = useNavigate();
 
   //react hook form prerequisites
   const {
@@ -38,7 +36,7 @@ const AddProduct = (webshopId) => {
           })
           .then((res) => {
             alert(res.data.message);
-            navigate(-1);
+            window.location.reload();
           });
       } catch (error) {
         setError(error);

@@ -44,15 +44,16 @@ const deleteUser = require("./controllers/auth/deleteUser");
 const authCheck = require("./controllers/auth/authCheck");
 
 //WEBSHOP
-const addWebshop = require("./controllers/webshop/addWebshop");
 const getWebshops = require("./controllers/webshop/getWebshops");
 const getWebshop = require("./controllers/webshop/getWebshop");
+const addWebshop = require("./controllers/webshop/addWebshop");
 const deleteWebshop = require("./controllers/webshop/deleteWebshop");
 const updateWebshop = require("./controllers/webshop/updateWebshop");
 
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
 const getProducts = require("./controllers/product/getProducts");
+const getProduct = require("./controllers/product/getProduct")
 const deleteProduct = require("./controllers/product/deleteProduct");
 
 app.get("/", cors(), (req, res) => {
@@ -93,14 +94,18 @@ app.post("/addWebshop", addWebshop);
 app.delete("/deleteWebshop", deleteWebshop);
 
 //update webshop
-app.post("/updateWebshop", updateWebshop);
+app.put("/updateWebshop", updateWebshop);
 
 //PRODUCT
+//get all products by webshop
+app.get("/getProducts", getProducts);
+
+//get one product
+app.get("/getProduct:product", getProduct)
+
 //add
 app.post("/addProduct", addProduct);
 
-//get all products by webshop
-app.get("/getProducts", getProducts);
 
 //delete product
 app.delete("/deleteProduct", deleteProduct);
