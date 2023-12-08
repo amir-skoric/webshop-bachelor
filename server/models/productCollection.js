@@ -18,6 +18,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createdByUserId: {
+    type: String,
+    required: true,
+  },
 });
 
 const productCollection = mongoose.model("products", productSchema);

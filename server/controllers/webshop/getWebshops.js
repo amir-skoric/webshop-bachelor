@@ -5,14 +5,14 @@ const webshopCollection = require("../../models/webshopCollection");
 module.exports = async (req, res) => {
   try {
     const data = await webshopCollection.find({
-      createdBy: req.session.user.email,
+      createdById: req.session.user.id,
     });
     if (!data) {
       return res
         .status(204)
         .json({ error: "You have no webshop. Create one to get started" });
     } else {
-      return res.status(200).send(data);
+      return res.status(200).json(data);
     }
   } catch (error) {
     return res

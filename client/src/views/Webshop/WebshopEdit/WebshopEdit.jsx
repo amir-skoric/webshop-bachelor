@@ -1,12 +1,11 @@
 //imports
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./webshopEdit.css";
 import { useForm } from "react-hook-form";
 import Error from "../../../components/Error/Error";
 
-import Spinner from "../../../components/Spinner/SpinnerWebshopOverview/";
 import AddProduct from "../../../components/Product/AddProduct/AddProduct";
 
 const WebshopEdit = () => {
@@ -14,12 +13,11 @@ const WebshopEdit = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
-  const [products, setProducts] = useState({});
-  const [loading, setLoading] = useState(true);
 
   //get state from webshop
   const location = useLocation();
-  const webshop = location.state;
+  const webshop = location.state.webshopData;
+  const products = location.state.products;
 
   //react hook form prerequisites
   const {
@@ -28,33 +26,20 @@ const WebshopEdit = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: webshop.webshopData.name,
-      description: webshop.webshopData.description,
-      color: webshop.webshopData.color,
+      name: webshop.name,
+      description: webshop.description,
+      color: webshop.color,
     },
   });
 
   function webshopCheck() {
-    if (webshop === null) {
+    if (
+      webshop && products === null
+    ) {
       return <h2>Unauthorized access</h2>;
     }
-  }
-
-  //get the current users webshops from the database
-  async function getProducts() {
-    try {
-      await axios
-        .get("http://localhost:4000/getProducts", {
-          params: { webshop: webshop.webshopData._id },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            setProducts(res.data);
-            setLoading(false);
-          }
-        });
-    } catch (error) {
-      alert(error);
+    else {
+      
     }
   }
 
@@ -64,11 +49,16 @@ const WebshopEdit = () => {
       try {
         await axios
           .delete("http://localhost:4000/deleteProduct", {
-            data: { productId: id, webshop: webshop.webshopData._id },
+            data: {
+              productId: id,
+              webshop: webshop._id,
+              createdBy: webshop.createdById,
+            },
           })
           .then((res) => {
             if (res.status === 200) {
               alert(res.data.message);
+              navigate("/webshops/" + webshop.name, { replace: true });
             }
           });
       } catch (error) {
@@ -76,13 +66,10 @@ const WebshopEdit = () => {
       }
   }
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
+  //update webshop function
   const onSubmit = async (data) => {
     //get webshop id for updating purposes
-    data._id = webshop.webshopData._id;
+    data._id = webshop._id;
 
     //if an image is selected then:
     //convert image to base64 and set it as a state to use later
@@ -109,6 +96,7 @@ const WebshopEdit = () => {
               }
             });
         } catch (error) {
+          console.log(error);
           setError(error.response.data.error);
         }
       };
@@ -122,7 +110,7 @@ const WebshopEdit = () => {
               name: data.name,
               description: data.description,
               color: data.color,
-              bannerImage: webshop.webshopData.bannerImage,
+              bannerImage: webshop.bannerImage,
             },
             withCredentials: true,
           })
@@ -179,7 +167,7 @@ const WebshopEdit = () => {
             />
             <p className="form-error">{errors.color?.message}</p>
             <label className="label-form">Current Banner Image</label>
-            <img src={webshop.webshopData.bannerImage}></img>
+            <img src={webshop.bannerImage}></img>
             <input
               {...register("bannerImage", {})}
               placeholder="Upload an image"
@@ -195,42 +183,34 @@ const WebshopEdit = () => {
         <h1>My products</h1>
 
         <div className="productsEditPage">
-          {!loading ? (
-            products.map((item) => {
-              return (
-                <div className="productsContainerEditPage" key={item._id}>
-                  <div className="productsEditOverview">
-                    <img src={item.image}></img>
-                    <h3>{item.name}</h3>
-                    <p>{item.description.substring(0, 20) + "..."}</p>
-                    <p style={{ color: webshop.webshopData.color }}>
-                      ${item.price}
-                    </p>
-                  </div>
-                  <div className="productsEditDelete">
-                    <button
-                      onClick={() =>
-                        deleteProduct(item._id, item.name, item.createdBy)
-                      }
-                    >
-                      Delete
-                    </button>
-                  </div>
+          {products.map((item) => {
+            return (
+              <div className="productsContainerEditPage" key={item._id}>
+                <div className="productsEditOverview">
+                  <img src={item.image}></img>
+                  <h3>{item.name}</h3>
+                  <p>{item.description.substring(0, 20) + "..."}</p>
+                  <p style={{ color: webshop.color }}>${item.price}</p>
                 </div>
-              );
-            })
-          ) : (
-            <Spinner />
-          )}
+                <div className="productsEditDelete">
+                  <button
+                    onClick={() =>
+                      deleteProduct(item._id, item.name, item.createdBy)
+                    }
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
         {products.length === 0 && (
-          <p style={{ margin: 50 }}>
-            You have no products. Create one to get started.
-          </p>
+          <p>You have no products. Create one to get started.</p>
         )}
       </div>
 
-      <AddProduct webshopId={webshop.webshopData._id} />
+      <AddProduct webshopId={webshop._id} />
     </div>
   );
 };

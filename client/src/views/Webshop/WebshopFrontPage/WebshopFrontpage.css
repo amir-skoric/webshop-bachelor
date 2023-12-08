@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  gap: 10px;
   color: white;
 }
 
@@ -28,8 +28,12 @@
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .webshopBannerImage::before {
@@ -40,7 +44,7 @@
   right: 0;
   height: 100vh;
   display: block;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   transition: all 200ms ease-in-out;
 }
 
@@ -62,4 +66,45 @@
 .webshopEditBanner > a {
   font-family: "Roboto", sans-serif;
   color: rgb(129, 129, 129);
+}
+
+.productsWebshop {
+  margin: 15%;
+  margin-top: 100px;
+  background: rgb(245, 245, 245);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 50px;
+}
+
+.productsOverviewContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.productOverview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  padding: 25px;
+}
+
+.productOverview > img {
+  height: 300px;
+  object-fit: cover;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.webshopAddToCartButton {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 200ms ease-in-out;
+  width: 100%;
+}
+
+.webshopAddToCartButton:hover {
+  cursor: pointer;
 }

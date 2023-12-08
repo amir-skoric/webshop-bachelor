@@ -22,3 +22,20 @@
     background: RGBA(255,255,255,0.25);
     cursor: pointer;
 }
+
+
+.dashboard-button-delete {
+    padding: 15px 30px;
+    background: rgba(255, 98, 98, 0.8);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition: all 200ms ease-in-out;
+
+    margin-top: 20px;
+  }
+  
+  .dashboard-button-delete:hover {
+    background: rgba(255, 98, 98, 1);
+    cursor: pointer;
+  }

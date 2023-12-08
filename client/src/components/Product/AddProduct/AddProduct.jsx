@@ -2,10 +2,13 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "../../Error/Error";
 
 const AddProduct = (webshopId) => {
+  const navigate = useNavigate();
+
   //react hook form prerequisites
   const {
     register,
@@ -34,13 +37,11 @@ const AddProduct = (webshopId) => {
             withCredentials: true,
           })
           .then((res) => {
-            if (res.status === 200) {
-              alert(res.data.message);
-              window.location.reload();
-            }
+            alert(res.data.message);
+            navigate(-1);
           });
       } catch (error) {
-        setError(error.response.data.error);
+        setError(error);
       }
     };
   };
@@ -71,7 +72,7 @@ const AddProduct = (webshopId) => {
         <label className="label-form">Price in USD</label>
         <input
           {...register("price", {
-            required: "Describe your product with a few words",
+            required: "Please enter the price of your product",
           })}
           placeholder="Price"
           type="number"

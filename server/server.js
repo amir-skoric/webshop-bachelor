@@ -40,6 +40,7 @@ app.use(
 const login = require("./controllers/auth/login");
 const register = require("./controllers/auth/register");
 const signout = require("./controllers/auth/signout");
+const deleteUser = require("./controllers/auth/deleteUser");
 const authCheck = require("./controllers/auth/authCheck");
 
 //WEBSHOP
@@ -52,10 +53,10 @@ const updateWebshop = require("./controllers/webshop/updateWebshop");
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
 const getProducts = require("./controllers/product/getProducts");
-const deleteProduct = require("./controllers/product/deleteProduct")
+const deleteProduct = require("./controllers/product/deleteProduct");
 
 app.get("/", cors(), (req, res) => {
-  res.send("You shouldn't be here...");
+  res.json("You shouldn't be here...");
 });
 
 app.listen(port, () => {
@@ -71,6 +72,9 @@ app.post("/login", login);
 
 //signout
 app.get("/signout", signout);
+
+//delete user
+app.delete("/deleteUser", deleteUser);
 
 //auth check
 app.get("/authCheck", authCheck);

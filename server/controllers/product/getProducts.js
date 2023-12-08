@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         .status(204)
         .json({ error: "You have no products. Create one to get started" });
     } else {
-      return res.status(200).send(data);
+      return res.status(200).json(data);
     }
   } catch (error) {
     return res

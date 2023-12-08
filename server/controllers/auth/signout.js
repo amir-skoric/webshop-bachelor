@@ -1,5 +1,5 @@
 module.exports = async (req, res) => {
   req.session.destroy();
   res.clearCookie("connect.sid");
-  res.status(200).send({ msg: "Logged out" });
+  res.status(200).json({ msg: "Logged out" });
 };

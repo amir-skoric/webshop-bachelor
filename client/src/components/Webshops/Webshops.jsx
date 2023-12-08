@@ -24,7 +24,7 @@ const WebshopTable = () => {
         }
       });
     } catch (error) {
-      alert(error);
+      console.log(error)
     }
   }
 
@@ -32,7 +32,7 @@ const WebshopTable = () => {
     setShowpopup(true);
   }
 
-  async function deleteWebshop(id, name) {
+  async function deleteWebshop(id, name, createdById) {
     if (
       window.confirm(
         `Are you sure you want to delete ${name}? This will also delete all products assosiated with your store`
@@ -41,7 +41,7 @@ const WebshopTable = () => {
       try {
         await axios
           .delete("http://localhost:4000/deleteWebshop", {
-            data: { webshopId: id },
+            data: { webshopId: id, createdById: createdById },
           })
           .then((res) => {
             if (res.status === 200) {
@@ -81,14 +81,18 @@ const WebshopTable = () => {
               <div className="webshops">
                 <Link className="webshopInfo" to={`/webshops/${item.name}`}>
                   <p>{item.name}</p>
-                  <p>{item.description.substring(0, 5) + "..."}</p>
+                  <p>{item.description.substring(0, 15) + "..."}</p>
                   <p style={{ color: item.color }}>■</p>
                   <p>{item.products.length}</p>
                   <p>{item.createdAt.substring(0, 10)}</p>
                 </Link>
               </div>
               <div className="webshopsDelete">
-                <button onClick={() => deleteWebshop(item._id, item.name)}>
+                <button
+                  onClick={() =>
+                    deleteWebshop(item._id, item.name, item.createdById)
+                  }
+                >
                   Delete
                 </button>
               </div>

@@ -32,7 +32,11 @@ const webshopSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    createdBy: {
+    createdByEmail: {
+      type: String,
+      required: true,
+    },
+    createdById: {
       type: String,
       required: true,
     },
