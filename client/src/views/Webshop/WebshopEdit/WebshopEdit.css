@@ -135,10 +135,25 @@
 .webshopEditCategoriesOverview {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-direction: row;
   padding: 20px;
   border-radius: 10px;
   background: white;
   margin: 20px 0;
 
+}
+
+.webshopEditCategoriesDelete {
+  padding: 15px 20px;
+  background: rgba(255, 98, 98, 0.8);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 200ms ease-in-out;
+}
+
+.webshopEditCategoriesDelete:hover {
+  background: rgba(255, 98, 98, 1);
+  cursor: pointer;
 }
