@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function authCheck() {
+  async function setAuth() {
     try {
       await axios.get("http://localhost:4000/setAuth").then((res) => {
         if (res.status === 200) {
@@ -32,9 +32,9 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    authCheck();
+    setAuth();
     setLoading(false);
-  }, [authenticated]);
+  }, []);
 
   const value = {
     authUser,

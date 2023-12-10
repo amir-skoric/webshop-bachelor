@@ -13,14 +13,14 @@ const Products = ({ webshopData }) => {
   const { webshop } = useParams();
 
   const [products, setProducts] = useState({});
-  const [productsUnfiltered, setProductsUnfiltered] = useState({});
+  const [productsUnsorted, setProductsUnsorted] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts(webshopData._id)
       .then((data) => {
         setProducts(data);
-        setProductsUnfiltered(data)
+        setProductsUnsorted(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -42,8 +42,13 @@ const Products = ({ webshopData }) => {
       );
       setProducts([...sortedArray]);
     } else {
-      setProducts(productsUnfiltered);
+      setProducts(productsUnsorted);
     }
+  }
+
+  //category handling
+  function handleCheckbox () {
+    
   }
 
   return (
@@ -56,27 +61,20 @@ const Products = ({ webshopData }) => {
           {!webshopData.categories && (
             <p style={{ marginBottom: 20 }}>All products</p>
           )}
-          <p
-            className="productsAllShow"
-            onClick={() => setProducts(productsUnfiltered)}
-          >
-            All products
-          </p>
           {!loading
             ? webshopData.categories?.map((item) => {
-                const filtered = productsUnfiltered.filter((obj) =>
+                let filtered = products.filter((obj) =>
                   item.products.$each.includes(obj._id)
                 );
 
                 return (
                   <div
-                    className="productsCategorySelector"
-                    onClick={() => setProducts(filtered)}
                     key={item.name}
+                    onClick={() => {
+                      setProducts(filtered);
+                    }}
                   >
-                    <p className="label-form productsCategoryLabel">
-                      {item.name}
-                    </p>
+                    <p>{item.name}</p>
                   </div>
                 );
               })

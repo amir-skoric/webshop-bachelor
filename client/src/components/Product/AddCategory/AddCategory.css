@@ -45,6 +45,19 @@
     background: rgba(98, 121, 255, 1);
     cursor: pointer;
   }
+
+  .categoryLabel {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .categoryLabel:hover {
+    cursor: pointer;
+  }
+  
+  
   
   .addCategoryCheckboxes {
     display: flex;

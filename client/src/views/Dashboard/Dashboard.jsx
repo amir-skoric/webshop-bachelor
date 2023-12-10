@@ -5,6 +5,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
+//logo
+import Logo from "../../assets/logo.svg";
+
 import Webshops from "../../components/Webshops/Webshops";
 
 const Dashboard = () => {
@@ -56,6 +59,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-banner">
+        <img src={Logo} style={{height: 200}} />
         <h1>
           Hello, {authUser.fName} {authUser.lName}
         </h1>

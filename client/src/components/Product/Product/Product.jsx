@@ -1,6 +1,6 @@
 //imports
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import "./Product.css";
 
@@ -11,11 +11,6 @@ import SpinnerWebshop from "../../Spinner/SpinnerWebshop";
 import getProduct from "../../../api/Product/getProduct";
 
 const Product = () => {
-  const location = useLocation();
-
-  //a little bit of a scuffed solution to the problem
-  const goBack = location.pathname.slice(1, 15);
-
   const { product } = useParams();
 
   const [productData, setProductData] = useState({});
@@ -30,7 +25,7 @@ const Product = () => {
 
   return (
     <div className="productPage">
-      <Link className="productPageBackButton" to={`/${goBack}`}>
+      <Link className="productPageBackButton" to={-1}>
         Go back
       </Link>
       {!loading ? (

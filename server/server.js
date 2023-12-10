@@ -51,6 +51,9 @@ const addWebshop = require("./controllers/webshop/addWebshop");
 const deleteWebshop = require("./controllers/webshop/deleteWebshop");
 const updateWebshop = require("./controllers/webshop/updateWebshop");
 
+//CATEGORY
+const addCategory = require("./controllers/category/addCategory");
+
 //PRODUCT
 const addProduct = require("./controllers/product/addProduct");
 const getProducts = require("./controllers/product/getProducts");
@@ -96,6 +99,10 @@ app.delete("/deleteWebshop", authCheck, deleteWebshop);
 
 //update webshop
 app.put("/updateWebshop", authCheck, updateWebshop);
+
+//CATEGORY
+//add category
+app.post("/addCategory", authCheck, addCategory);
 
 //PRODUCT
 //get all products by webshop

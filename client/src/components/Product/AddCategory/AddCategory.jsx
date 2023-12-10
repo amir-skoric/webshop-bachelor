@@ -1,5 +1,5 @@
 //imports
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AddCategory.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -7,7 +7,7 @@ import axios from "axios";
 //backend error
 import Error from "../../Error/Error";
 
-const AddCategory = ({ products, loading }) => {
+const AddCategory = ({ products, loading, webshopId }) => {
   //react hook form prerequisites
   const {
     register,
@@ -22,9 +22,10 @@ const AddCategory = ({ products, loading }) => {
       await axios
         .post("http://localhost:4000/addCategory", {
           data: {
+            webshop: webshopId,
             name: data.name,
+            products: data.products,
           },
-          withCredentials: true,
         })
         .then((res) => {
           alert(res.data.message);
@@ -59,14 +60,26 @@ const AddCategory = ({ products, loading }) => {
         {!loading
           ? products.map((item) => {
               return (
-                <div className="addCategoryCheckboxes">
-                  <input type="checkbox" key={item._id} id={item._id} name={item.name} />
-                  <label for={item._id} className="label-form">{item.name}</label>
+                <div className="addCategoryCheckboxes" key={item._id}>
+                  <label
+                    htmlFor={item._id}
+                    className="label-form categoryLabel"
+                  >
+                    <input
+                      type="checkbox"
+                      id={item._id}
+                      value={item._id}
+                      {...register("products", {
+                        required: "Please check at least one product",
+                      })}
+                    />
+                    {item.name}
+                  </label>
                 </div>
               );
             })
           : null}
-
+        <p className="form-error">{errors.products?.message}</p>
         {error.length > 0 && <Error>{error}</Error>}
         <input type="submit" value="Add Category" />
       </form>

@@ -9,7 +9,7 @@ import Error from "../../../components/Error/Error";
 //add product import
 import AddProduct from "../../../components/Product/AddProduct/AddProduct";
 //add category import
-import AddCategory from "../../../components/Product/AddCategory/AddCategory"
+import AddCategory from "../../../components/Product/AddCategory/AddCategory";
 
 //get products api utility
 import getProducts from "../../../api/Product/getProducts";
@@ -29,7 +29,7 @@ const WebshopEdit = () => {
 
   //get state from webshop
   const location = useLocation();
-  const webshop = location.state.webshopData;
+  const webshop = location.state?.webshopData;
 
   //react hook form prerequisites
   const {
@@ -38,18 +38,11 @@ const WebshopEdit = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: webshop.name,
-      description: webshop.description,
-      color: webshop.color,
+      name: webshop?.name,
+      description: webshop?.description,
+      color: webshop?.color,
     },
   });
-
-  //doesn't actually work
-  function webshopCheck() {
-    if (webshop === null) {
-      return <h2>Unauthorized access</h2>;
-    }
-  }
 
   //delete product function
   async function deleteProduct(id, name) {
@@ -59,14 +52,14 @@ const WebshopEdit = () => {
           .delete("http://localhost:4000/deleteProduct", {
             data: {
               productId: id,
-              webshop: webshop._id,
-              createdBy: webshop.createdById,
+              webshop: webshop?._id,
+              createdBy: webshop?.createdById,
             },
           })
           .then((res) => {
             if (res.status === 200) {
               alert(res.data.message);
-              getProducts(webshop._id).then((data) => {
+              getProducts(webshop?._id).then((data) => {
                 setProducts(data);
                 setLoading(false);
               });
@@ -80,7 +73,7 @@ const WebshopEdit = () => {
   //update webshop function
   const onSubmit = async (data) => {
     //get webshop id for updating purposes
-    data._id = webshop._id;
+    data._id = webshop?._id;
 
     //set loading to true while uploading/updating
     setUploading(true);
@@ -91,7 +84,7 @@ const WebshopEdit = () => {
 
     //if an image is selected then:
     const reader = new FileReader();
-    if (data.bannerImage[0] !== undefined) {
+    if (data?.bannerImage[0] !== undefined) {
       const formData = new FormData();
       const file = data.bannerImage[0];
       formData.append("file", file);
@@ -110,24 +103,24 @@ const WebshopEdit = () => {
             axios
               .put("http://localhost:4000/updateWebshop", {
                 data: {
-                  _id: data._id,
-                  name: data.name,
-                  description: data.description,
-                  color: data.color,
-                  bannerImage: res.data.secure_url,
-                  bannerImageId: res.data.public_id,
+                  _id: data?._id,
+                  name: data?.name,
+                  description: data?.description,
+                  color: data?.color,
+                  bannerImage: res?.data.secure_url,
+                  bannerImageId: res?.data.public_id,
                 },
                 withCredentials: true,
               })
               .then((res) => {
-                if (res.status === 200) {
+                if (res?.status === 200) {
                   setUploading(false);
-                  alert(res.data.message);
-                  navigate("/webshops/" + data.name, { replace: true });
+                  alert(res?.data.message);
+                  navigate("/webshops/" + data?.name, { replace: true });
                 }
               });
           } catch (error) {
-            setError(error.response.data.error);
+            setError(error?.response.data.error);
           }
         });
     } else {
@@ -136,29 +129,29 @@ const WebshopEdit = () => {
         await axios
           .put("http://localhost:4000/updateWebshop", {
             data: {
-              _id: data._id,
-              name: data.name,
-              description: data.description,
-              color: data.color,
-              bannerImage: webshop.bannerImage,
+              _id: data?._id,
+              name: data?.name,
+              description: data?.description,
+              color: data?.color,
+              bannerImage: webshop?.bannerImage,
             },
             withCredentials: true,
           })
           .then((res) => {
-            if (res.status === 200) {
-              alert(res.data.message);
-              navigate("/webshops/" + data.name, { replace: true });
+            if (res?.status === 200) {
+              alert(res?.data.message);
+              navigate("/webshops/" + data?.name, { replace: true });
             }
           });
       } catch (error) {
-        setError(error.response.data.error);
+        setError(error?.response.data.error);
       }
     }
   };
 
   //get products from the webshop
   useEffect(() => {
-    getProducts(webshop._id)
+    getProducts(webshop?._id)
       .then((data) => {
         setProducts(data);
         setLoading(false);
@@ -174,8 +167,7 @@ const WebshopEdit = () => {
       <button className="webshopEditBackButton" onClick={() => navigate(-1)}>
         Go back
       </button>
-      {webshopCheck()}
-      {!webshopCheck() && (
+      {webshop ? (
         <div className="webshopEditInfo">
           <form onSubmit={handleSubmit(onSubmit)} className="form-webshopEdit">
             <h1 className="h1-webshopEdit">Edit Your Webshop</h1>
@@ -210,7 +202,7 @@ const WebshopEdit = () => {
             />
             <p className="form-error">{errors.color?.message}</p>
             <label className="label-form">Current Banner Image</label>
-            <img src={webshop.bannerImage}></img>
+            <img src={webshop?.bannerImage}></img>
             <input
               {...register("bannerImage", {})}
               placeholder="Upload an image"
@@ -221,43 +213,65 @@ const WebshopEdit = () => {
             {error.length > 0 && <Error>{error}</Error>}
             <input type="submit" value="Save changes" />
           </form>
+          <div className="webshopEditProducts">
+            <h1>My Products</h1>
+            <div className="productsEditPage">
+              {!loading ? (
+                products.map((item) => {
+                  return (
+                    <div className="productsContainerEditPage" key={item._id}>
+                      <div className="productsEditOverview">
+                        <img src={item.image}></img>
+                        <h3>{item.name}</h3>
+                        <p>{item.shortDescription.substring(0, 20) + "..."}</p>
+                        <p style={{ color: webshop.color }}>${item.price}</p>
+                      </div>
+                      <div className="productsEditDelete">
+                        <button
+                          onClick={() =>
+                            deleteProduct(item._id, item.name, item.createdBy)
+                          }
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <SpinnerWebshopOverview />
+              )}
+            </div>
+            {products.length === 0 && (
+              <p>You have no products. Create one to get started.</p>
+            )}
+          </div>
+          <div className="webshopEditCategories">
+          <h1>My Categories</h1>
+            {!loading
+              ? webshop.categories?.map((item) => {
+                console.log(item)
+                  return (
+                    <div className="webshopEditCategoriesOverview">
+                      <p>{item.name}</p>
+                      
+        
+                      <button>Delete</button>
+                    </div>
+                  );
+                })
+              : null}
+          </div>
+          <AddCategory
+            webshopId={webshop?._id}
+            products={products}
+            loading={loading}
+          />
+          <AddProduct webshopId={webshop?._id} />
         </div>
+      ) : (
+        <h1>Unauthorized Access</h1>
       )}
-      <div className="webshopEditProducts">
-        <h1>My products</h1>
-        <div className="productsEditPage">
-          {!loading ? (
-            products.map((item) => {
-              return (
-                <div className="productsContainerEditPage" key={item._id}>
-                  <div className="productsEditOverview">
-                    <img src={item.image}></img>
-                    <h3>{item.name}</h3>
-                    <p>{item.shortDescription}</p>
-                    <p style={{ color: webshop.color }}>${item.price}</p>
-                  </div>
-                  <div className="productsEditDelete">
-                    <button
-                      onClick={() =>
-                        deleteProduct(item._id, item.name, item.createdBy)
-                      }
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <SpinnerWebshopOverview />
-          )}
-        </div>
-        {products.length === 0 && (
-          <p>You have no products. Create one to get started.</p>
-        )}
-      </div>
-      <AddCategory products={products} loading={loading}/>
-      <AddProduct webshopId={webshop._id} />
     </div>
   );
 };
