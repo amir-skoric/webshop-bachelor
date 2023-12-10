@@ -16,9 +16,11 @@ module.exports = async (req, res) => {
   webshopCollection
     .create({
       name: req.body.data.name,
+      shortDescription: req.body.data.shortDescription,
       description: req.body.data.description,
       color: req.body.data.color,
       bannerImage: req.body.data.bannerImage,
+      bannerImageId: req.body.data.bannerImageId,
       createdByEmail: req.session.user.email,
       createdById: req.session.user.id,
     })

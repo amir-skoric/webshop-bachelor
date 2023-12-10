@@ -1,4 +1,4 @@
-.spinner {
+.spinner-uploading {
   width: 36px;
   height: 36px;
   border: 5px solid #20f510;
@@ -9,17 +9,15 @@
   animation: rotation 1s linear infinite;
 }
 
-.spinner-container {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
+.spinner-container-uploading {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   flex-direction: column;
-  height: 100vh;
   gap: 10px;
   align-items: center;
+  grid-column: 1 / span 4;
   margin-bottom: 20px;
 }
 

@@ -7,6 +7,10 @@ const webshopSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    shortDescription: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -17,12 +21,17 @@ const webshopSchema = new mongoose.Schema(
     },
     bannerImage: {
       type: String,
-      default: "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+      default:
+        "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+      required: true,
+    },
+    bannerImageId: {
+      type: String,
       required: true,
     },
     categories: {
-      type: Object,
-      default: {},
+      type: [String],
+      default: [],
     },
     products: {
       type: [String],

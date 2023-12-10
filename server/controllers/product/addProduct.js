@@ -7,8 +7,10 @@ module.exports = async (req, res) => {
   await productsCollection
     .create({
       name: req.body.data.name,
+      shortDescription: req.body.data.shortDescription,
       description: req.body.data.description,
       image: req.body.data.image,
+      imageId: req.body.data.imageId,
       price: req.body.data.price,
       createdBy: req.body.data.webshop.webshopId,
       createdByUserId: req.session.user.id,

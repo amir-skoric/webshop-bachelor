@@ -8,12 +8,15 @@ import Error from "../../../components/Error/Error";
 
 //add product import
 import AddProduct from "../../../components/Product/AddProduct/AddProduct";
+//add category import
+import AddCategory from "../../../components/Product/AddCategory/AddCategory"
 
 //get products api utility
 import getProducts from "../../../api/Product/getProducts";
 
 //spinner/loader
 import SpinnerWebshopOverview from "../../../components/Spinner/SpinnerWebshopOverview";
+import SpinnerUploading from "../../../components/Spinner/SpinnerUploading";
 
 const WebshopEdit = () => {
   //used to navigate back to previous page
@@ -22,6 +25,7 @@ const WebshopEdit = () => {
   const [error, setError] = useState("");
   const [products, setProducts] = useState({});
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   //get state from webshop
   const location = useLocation();
@@ -78,37 +82,56 @@ const WebshopEdit = () => {
     //get webshop id for updating purposes
     data._id = webshop._id;
 
+    //set loading to true while uploading/updating
+    setUploading(true);
+
+    //cloudinary required keys/values
+    const preset = import.meta.env.VITE_CLOUDINARY_PRESET;
+    const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
     //if an image is selected then:
-    //convert image to base64 and set it as a state to use later
     const reader = new FileReader();
     if (data.bannerImage[0] !== undefined) {
-      reader.readAsDataURL(data.bannerImage[0]);
-      reader.onload = async function () {
-        try {
-          await axios
-            .put("http://localhost:4000/updateWebshop", {
-              data: {
-                _id: data._id,
-                name: data.name,
-                description: data.description,
-                color: data.color,
-                bannerImage: reader.result,
-              },
-              withCredentials: true,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                alert(res.data.message);
-                navigate("/webshops/" + data.name, { replace: true });
-              }
-            });
-        } catch (error) {
-          console.log(error);
-          setError(error.response.data.error);
-        }
-      };
+      const formData = new FormData();
+      const file = data.bannerImage[0];
+      formData.append("file", file);
+      formData.append("upload_preset", preset);
+      axios
+        .post(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+          formData,
+          {
+            withCredentials: false,
+          }
+        )
+        //then use the url provided from the cloudinary api to use as our bannerImage
+        .then((res) => {
+          try {
+            axios
+              .put("http://localhost:4000/updateWebshop", {
+                data: {
+                  _id: data._id,
+                  name: data.name,
+                  description: data.description,
+                  color: data.color,
+                  bannerImage: res.data.secure_url,
+                  bannerImageId: res.data.public_id,
+                },
+                withCredentials: true,
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  setUploading(false);
+                  alert(res.data.message);
+                  navigate("/webshops/" + data.name, { replace: true });
+                }
+              });
+          } catch (error) {
+            setError(error.response.data.error);
+          }
+        });
     } else {
-      //if no new image is selected, use the current one saved in the database
+      //if no new image is selected, keep the current one saved in the database
       try {
         await axios
           .put("http://localhost:4000/updateWebshop", {
@@ -194,6 +217,7 @@ const WebshopEdit = () => {
               type="file"
               accept=".png, .jpg, .jpeg"
             />
+            {uploading && <SpinnerUploading />}
             {error.length > 0 && <Error>{error}</Error>}
             <input type="submit" value="Save changes" />
           </form>
@@ -209,7 +233,7 @@ const WebshopEdit = () => {
                   <div className="productsEditOverview">
                     <img src={item.image}></img>
                     <h3>{item.name}</h3>
-                    <p>{item.description.substring(0, 20) + "..."}</p>
+                    <p>{item.shortDescription}</p>
                     <p style={{ color: webshop.color }}>${item.price}</p>
                   </div>
                   <div className="productsEditDelete">
@@ -232,7 +256,7 @@ const WebshopEdit = () => {
           <p>You have no products. Create one to get started.</p>
         )}
       </div>
-
+      <AddCategory products={products} loading={loading}/>
       <AddProduct webshopId={webshop._id} />
     </div>
   );

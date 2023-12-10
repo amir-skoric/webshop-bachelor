@@ -32,12 +32,14 @@ const Webshops = () => {
     setShowpopup(true);
   }
 
+  //delete webshop function
   async function deleteWebshop(id, name, createdById) {
     if (
       window.confirm(
         `Are you sure you want to delete ${name}? This will also delete all products assosiated with your store`
       )
     )
+      //delete image from cloudinary using api (does not work)
       try {
         await axios
           .delete("http://localhost:4000/deleteWebshop", {
@@ -51,6 +53,7 @@ const Webshops = () => {
             }
           });
       } catch (error) {
+        console.log(error);
         alert(error.response.data.error);
       }
   }
@@ -79,11 +82,7 @@ const Webshops = () => {
           return (
             <div className="webshopsContainer" key={item._id}>
               <div className="webshops">
-                <Link
-                  className="webshopInfo"
-                  to={`/webshops/${item.name}`}
-                  target="_blank"
-                >
+                <Link className="webshopInfo" to={`/webshops/${item.name}`}>
                   <p>{item.name}</p>
                   <p>{item.description.substring(0, 15) + "..."}</p>
                   <p style={{ color: item.color }}>■</p>
@@ -94,7 +93,12 @@ const Webshops = () => {
               <div className="webshopsDelete">
                 <button
                   onClick={() =>
-                    deleteWebshop(item._id, item.name, item.createdById)
+                    deleteWebshop(
+                      item._id,
+                      item.name,
+                      item.createdById,
+                      item.bannerImageId
+                    )
                   }
                 >
                   Delete

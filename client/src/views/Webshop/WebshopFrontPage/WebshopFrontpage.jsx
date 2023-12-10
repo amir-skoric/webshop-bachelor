@@ -62,10 +62,11 @@ const WebshopFrontpage = () => {
           <h1 style={{ color: webshopData.color }}>
             {webshopData.message || webshopData.name}
           </h1>
-          <p>{webshopData.description}</p>
+          <p>{webshopData.shortDescription}</p>
         </div>
       </div>
-        <Products webshopData={webshopData} />
+      <p className="webshopDescription">{webshopData.description}</p>
+      <Products webshopData={webshopData} />
       <p style={{ textAlign: "center", marginBottom: 50 }}>
         If you have any questions related to our webshop, feel free to contact
         us at: <strong>{webshopData.createdByEmail}</strong>

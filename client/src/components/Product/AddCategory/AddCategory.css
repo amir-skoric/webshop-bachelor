@@ -1,8 +1,8 @@
-.addProduct {
+.addCategory {
     padding: 50px;
   }
   
-  .addProductInfo {
+  .addCategoryInfo {
     display: flex;
     padding: 20px;
     flex-direction: column;
@@ -15,14 +15,14 @@
   }
   
   
-  .form-addProduct {
+  .form-addCategory {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
   
-
-  .form-addProduct > input[type="number"] {
+  
+  .form-addCategory > input[type="text"] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -30,23 +30,8 @@
     border: solid 1px;
   }
   
-  .form-addProduct > input[type="text"] {
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 20px;
-    border: solid 1px;
-  }
   
-  .form-addProduct > textarea[type="text"] {
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 20px;
-    border: solid 1px;
-  }
-  
-  .form-addProduct > input[type="submit"] {
+  .form-addCategory > input[type="submit"] {
     padding: 15px 30px;
     background: rgba(98, 121, 255, 0.8);
     border: none;
@@ -56,8 +41,17 @@
     width: 100%;
   }
   
-  .form-addProduct > input[type="submit"]:hover {
+  .form-addCategory > input[type="submit"]:hover {
     background: rgba(98, 121, 255, 1);
     cursor: pointer;
   }
   
+  .addCategoryCheckboxes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    width: 100%;
+  }

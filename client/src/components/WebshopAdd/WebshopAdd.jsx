@@ -4,6 +4,7 @@ import axios from "axios";
 import "./WebshopAdd.css";
 import { useForm } from "react-hook-form";
 import Error from "../Error/Error";
+import SpinnerUploading from "../Spinner/SpinnerUploading";
 
 const WebshopAdd = ({ showPopup }) => {
   //react hook form prerequisites
@@ -14,35 +15,55 @@ const WebshopAdd = ({ showPopup }) => {
   } = useForm();
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  //submit webshop info to api/database
   const onSubmit = async (data) => {
-    //if an image is selected then:
-    //convert image to base64 and set it as a state to use later
-    const reader = new FileReader();
-    reader.readAsDataURL(data.bannerImage[0]);
-    reader.onload = async function () {
-      try {
-        await axios
-          .post("http://localhost:4000/addWebshop", {
-            data: {
-              name: data.name,
-              description: data.description,
-              color: data.color,
-              bannerImage:
-                reader.result
-            },
-            withCredentials: true,
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              alert(res.data.message);
-              window.location.reload();
-            }
-          });
-      } catch (error) {
-        setError(error.response.data.error);
-      }
-    };
+    //set loading to true while uploading
+    setLoading(true);
+    //cloudinary required keys/values
+    const preset = import.meta.env.VITE_CLOUDINARY_PRESET;
+    const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
+    const formData = new FormData();
+    const file = data.bannerImage[0];
+    formData.append("file", file);
+    formData.append("upload_preset", preset);
+
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+        formData,
+        {
+          withCredentials: false,
+        }
+      )
+      //then use the url provided from the cloudinary api to use as our bannerImage
+      .then((res) => {
+        try {
+          axios
+            .post("http://localhost:4000/addWebshop", {
+              data: {
+                name: data.name,
+                shortDescription: data.shortDescription,
+                description: data.description,
+                color: data.color,
+                bannerImage: res.data.secure_url,
+                bannerImageId: res.data.public_id,
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                alert(res.data.message);
+                setLoading(false);
+                window.location.reload();
+              }
+            });
+        } catch (error) {
+          setError(error.response.data.error);
+        }
+      });
   };
 
   return (
@@ -59,15 +80,24 @@ const WebshopAdd = ({ showPopup }) => {
             type="text"
           />
           <p className="form-error">{errors.name?.message}</p>
+          <label className="label-form">Short Description</label>
+          <input
+            {...register("shortDescription", {
+              required: "Describe your webshop with a few words",
+            })}
+            placeholder="Short Description"
+            type="text"
+          />
+          <p className="form-error">{errors.shortDescription?.message}</p>
           <label className="label-form">Description</label>
           <textarea
             {...register("description", {
-              required: "Describe your webshop with a few words",
+              required: "Describe your webshop",
             })}
             placeholder="Description"
             type="text"
-            rows="4"
-            cols="30"
+            rows="6"
+            cols="50"
           />
           <p className="form-error">{errors.description?.message}</p>
           <label className="label-form">Primary color</label>
@@ -91,9 +121,11 @@ const WebshopAdd = ({ showPopup }) => {
           <p className="form-error" style={{ marginBottom: 20 }}>
             {errors.bannerImage?.message}
           </p>
+          {loading && <SpinnerUploading />}
           {error.length > 0 && <Error>{error}</Error>}
           <input type="submit" value="Create" />
         </form>
+
         <button onClick={() => showPopup(false)} className="webshopadd-close">
           Close
         </button>

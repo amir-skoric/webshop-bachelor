@@ -3,10 +3,14 @@ import React, { useState } from "react";
 import "./AddProduct.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+
+//backend error
 import Error from "../../Error/Error";
 
-const AddProduct = (webshopId) => {
+//spinner for uploading
+import SpinnerUploading from "../../Spinner/SpinnerUploading";
 
+const AddProduct = (webshopId) => {
   //react hook form prerequisites
   const {
     register,
@@ -15,34 +19,55 @@ const AddProduct = (webshopId) => {
   } = useForm();
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    //if an image is selected then:
-    //convert image to base64 and set it as a state to use later
-    const reader = new FileReader();
-    reader.readAsDataURL(data.image[0]);
-    reader.onload = async function () {
-      try {
-        await axios
-          .post("http://localhost:4000/addProduct", {
-            data: {
-              name: data.name,
-              description: data.description,
-              price: data.price,
-              image: reader.result,
-              webshop: webshopId,
-            },
-            withCredentials: true,
-          })
-          .then((res) => {
-            alert(res.data.message);
-            window.location.reload();
-          });
-      } catch (error) {
-        setError(error);
-      }
-    };
+    //cloudinary required keys/values
+    const preset = import.meta.env.VITE_CLOUDINARY_PRESET;
+    const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
+    //then use the url provided from the cloudinary api to use as our bannerImage
+    const formData = new FormData();
+    const file = data.image[0];
+    formData.append("file", file);
+    formData.append("upload_preset", preset);
+
+    //set loading to true while uploading
+    setLoading(true);
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+        formData,
+        {
+          withCredentials: false,
+        }
+      )
+      .then(async (res) => {
+        try {
+          await axios
+            .post("http://localhost:4000/addProduct", {
+              data: {
+                name: data.name,
+                shortDescription: data.shortDescription,
+                description: data.description,
+                price: data.price,
+                image: res.data.secure_url,
+                imageId: res.data.public_id,
+                webshop: webshopId,
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              alert(res.data.message);
+              setLoading(false);
+              window.location.reload();
+            });
+        } catch (error) {
+          setError(error);
+        }
+      });
   };
+
   return (
     <div className="addProductInfo">
       <form onSubmit={handleSubmit(onSubmit)} className="form-addProduct">
@@ -55,7 +80,16 @@ const AddProduct = (webshopId) => {
           placeholder="Name"
           type="text"
         />
-        <p className="form-error">{errors.name?.message}</p>
+        <p className="form-error">{errors.name?.message}</p>{" "}
+        <label className="label-form">Short Description</label>
+        <input
+          {...register("shortDescription", {
+            required: "Describe your product with a few words",
+          })}
+          placeholder="Short Description"
+          type="text"
+        />
+        <p className="form-error">{errors.shortDescription?.message}</p>
         <label className="label-form">Description</label>
         <textarea
           {...register("description", {
@@ -88,6 +122,7 @@ const AddProduct = (webshopId) => {
         <p className="form-error" style={{ marginBottom: 20 }}>
           {errors.image?.message}
         </p>
+        {loading && <SpinnerUploading style={{ marginBottom: 20 }} />}
         {error.length > 0 && <Error>{error}</Error>}
         <input type="submit" value="Add Product" />
       </form>

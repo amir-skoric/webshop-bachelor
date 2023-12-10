@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
 
   async function authCheck() {
     try {
-      await axios.get("http://localhost:4000/authCheck").then((res) => {
+      await axios.get("http://localhost:4000/setAuth").then((res) => {
         if (res.status === 200) {
           setAuthUser(res.data.session.user);
           setAuthenticated(res.data.session.isAuthenticated);
