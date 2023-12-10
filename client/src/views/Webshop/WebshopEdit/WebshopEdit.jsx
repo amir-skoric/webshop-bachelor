@@ -256,7 +256,7 @@ const WebshopEdit = () => {
                       <p>{item.name}</p>
                       
         
-                      <button>Delete</button>
+                      <button className="webshopEditCategoriesDelete">Delete</button>
                     </div>
                   );
                 })
