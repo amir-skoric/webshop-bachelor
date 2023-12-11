@@ -36,7 +36,7 @@ const Products = ({ webshopData }) => {
   function handleCheckout(product) {
     const cartArray = [...productsCart, product];
     sessionStorage.setItem("cart", JSON.stringify(cartArray));
-    navigate("/checkout");
+    navigate(`/webshops/${webshop}/checkout`);
   }
 
   //sets the new array in sessionarray

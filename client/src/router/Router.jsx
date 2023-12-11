@@ -53,7 +53,7 @@ export default function Router() {
               element={<Product />}
             />
           </Route>
-          <Route path="/checkout" element={<Checkout />}></Route>
+          <Route path="/webshops/:webshop/checkout" element={<Checkout />}></Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

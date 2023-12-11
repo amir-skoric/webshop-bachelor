@@ -1,27 +1,104 @@
-.checkoutContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 5% 10%;
-    gap: 20px;
-    margin: 5% 7%;
-    background: rgb(245, 245, 245);
-    border-radius: 10px;
+.checkoutPage {
+  display: flex;
+  flex-direction: column;
+  padding: 5% 5%;
+  gap: 20px;
+  margin: 3% 7%;
+  margin-top: 7%;
+  background: rgb(245, 245, 245);
+  border-radius: 10px;
 }
 
-.checkout {
+.checkoutContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkoutProductContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px;
+  justify-content: space-between;
+  padding: 0 5px;
   gap: 10px;
   border-radius: 10px;
   background: white;
+  width: 100%;
+}
+
+.checkoutProductContainer > * {
   flex-basis: 100%;
 }
 
-.checkout > img {
-  height: 50px;
-  width: 50px;
+.checkoutProductContainer > a {
+  color: black;
+  text-decoration: none;
+}
+
+.checkoutProductContainer > a:hover {
+  cursor: pointer;
+}
+
+.checkoutProductWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.checkoutTable {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 93%;
+}
+
+.checkoutTable > h4 {
+  flex-basis: 100%;
+}
+
+.checkoutProduct {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkoutProduct > img {
+  height: 30px;
+  width: 30px;
   object-fit: cover;
   border-radius: 5px;
+}
+
+.checkoutTotal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 7%;
+  border-radius: 10px;
+}
+
+.checkoutTotalPrice {
+  text-align: right;
+}
+
+.checkoutTotalPrice > h1 {
+  text-decoration: underline;
+}
+
+.removeFromCart {
+  padding: 10px 10px;
+  background: rgba(255, 98, 98, 0.8);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: all 200ms ease-in-out;
+}
+
+.removeFromCart:hover {
+  background: rgba(255, 98, 98, 1);
+  cursor: pointer;
 }
