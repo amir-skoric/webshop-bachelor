@@ -1,0 +1,72 @@
+.productPageBackButton {
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  border: none;
+  color: black;
+  text-decoration: underline;
+}
+
+.productPageBackButton:hover {
+  cursor: pointer;
+}
+
+.product {
+  margin: 5% 10%;
+  display: flex;
+  gap: 100px;
+  padding: 50px;
+  background: rgb(245, 245, 245);
+  border-radius: 20px;
+}
+
+.productLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.productLeft > h2 {
+  text-align: center;
+}
+
+.productLeft > img {
+  object-fit: cover;
+  height: 100%;
+  width: 350px;
+  border-radius: 10px;
+}
+
+.productRight {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.productRight > p {
+  margin-top: 30px;
+}
+
+.productRight > h4 {
+  margin-top: 30px;
+}
+
+.productRight > h2 {
+  font-size: 48px;
+  margin-top: 30px;
+}
+
+.productButtons {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.productRightContainerTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

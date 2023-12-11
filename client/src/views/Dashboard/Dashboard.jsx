@@ -59,7 +59,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-banner">
-        <img src={Logo} style={{height: 200}} />
+        <img src={Logo} style={{height: 100}} />
         <h1>
           Hello, {authUser.fName} {authUser.lName}
         </h1>

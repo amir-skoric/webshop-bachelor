@@ -65,6 +65,9 @@ const WebshopFrontpage = () => {
           <p>{webshopData.shortDescription}</p>
         </div>
       </div>
+      <h1 style={{ textAlign: "center", color: webshopData.color }}>
+        About us
+      </h1>
       <p className="webshopDescription">{webshopData.description}</p>
       <Products webshopData={webshopData} />
       <p style={{ textAlign: "center", marginBottom: 50 }}>

@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   if (req.body.createdById === req.session.user.id) {
     await webshopCollection
       .deleteOne({ _id: req.body.webshopId })
-      .then(() =>
+      .then(() => 
         productsCollection.deleteMany({ createdBy: req.body.webshopId })
       )
       .then(() => {

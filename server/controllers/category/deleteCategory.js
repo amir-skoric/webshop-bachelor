@@ -1,28 +1,18 @@
 //imports
 const webshopCollection = require("../../models/webshopCollection");
 
-//add category
+//delete category
 module.exports = async (req, res) => {
-  //check if products got selected
-  if (!req.body.data.products) {
-    return res.status(200).json({
-      message: "You have no products selected",
-    });
-  }
-
   //update the webshop database document to add the category
   await webshopCollection
-    .findByIdAndUpdate(req.body.data.webshop, {
-      $push: {
-        categories: {
-          name: req.body.data.name,
-          products: req.body.data.products,
-        },
+    .findByIdAndUpdate(req.body.webshop, {
+      $pull: {
+        categories: { _id: req.body.categoryId },
       },
     })
     .then(() => {
       return res.status(200).json({
-        message: "Category successfully created",
+        message: "Category successfully deleted",
       });
     })
     .catch((error) => {

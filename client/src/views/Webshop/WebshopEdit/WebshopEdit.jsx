@@ -1,6 +1,6 @@
 //imports
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./webshopEdit.css";
 import { useForm } from "react-hook-form";
@@ -39,6 +39,7 @@ const WebshopEdit = () => {
   } = useForm({
     defaultValues: {
       name: webshop?.name,
+      shortDescription: webshop?.shortDescription,
       description: webshop?.description,
       color: webshop?.color,
     },
@@ -63,6 +64,30 @@ const WebshopEdit = () => {
                 setProducts(data);
                 setLoading(false);
               });
+            }
+          });
+      } catch (error) {
+        alert(error);
+      }
+  }
+
+  //delete category function
+  async function deleteCategory(id, name) {
+    if (window.confirm(`Are you sure you want to delete ${name}?`))
+      try {
+        await axios
+          .delete("http://localhost:4000/deleteCategory", {
+            data: {
+              categoryId: id,
+              webshop: webshop?._id,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert(res.data.message);
+              navigate(-1);
+            } else {
+              alert(res.data.error);
             }
           });
       } catch (error) {
@@ -105,6 +130,7 @@ const WebshopEdit = () => {
                 data: {
                   _id: data?._id,
                   name: data?.name,
+                  shortDescription: data?.shortDescription,
                   description: data?.description,
                   color: data?.color,
                   bannerImage: res?.data.secure_url,
@@ -131,6 +157,7 @@ const WebshopEdit = () => {
             data: {
               _id: data?._id,
               name: data?.name,
+              shortDescription: data?.shortDescription,
               description: data?.description,
               color: data?.color,
               bannerImage: webshop?.bannerImage,
@@ -180,10 +207,19 @@ const WebshopEdit = () => {
               type="text"
             />
             <p className="form-error">{errors.name?.message}</p>
+            <label className="label-form">Short Description</label>
+            <input
+              {...register("shortDescription", {
+                required: "Describe your webshop with a few words",
+              })}
+              placeholder="Short Descripton"
+              type="text"
+            />
+            <p className="form-error">{errors.shortDescription?.message}</p>
             <label className="label-form">Description</label>
             <textarea
               {...register("description", {
-                required: "Describe your webshop with a few words",
+                required: "Describe your webshop",
               })}
               placeholder="Description"
               type="text"
@@ -220,12 +256,16 @@ const WebshopEdit = () => {
                 products.map((item) => {
                   return (
                     <div className="productsContainerEditPage" key={item._id}>
-                      <div className="productsEditOverview">
-                        <img src={item.image}></img>
-                        <h3>{item.name}</h3>
-                        <p>{item.shortDescription.substring(0, 20) + "..."}</p>
-                        <p style={{ color: webshop.color }}>${item.price}</p>
-                      </div>
+                      <Link to={`/webshops/${webshop.name}/products/${item._id}`}>
+                        <div className="productsEditOverview">
+                          <img src={item.image}></img>
+                          <h3>{item.name}</h3>
+                          <p>
+                            {item.shortDescription.substring(0, 20) + "..."}
+                          </p>
+                          <p style={{ color: webshop.color }}>${item.price}</p>
+                        </div>
+                      </Link>
                       <div className="productsEditDelete">
                         <button
                           onClick={() =>
@@ -247,20 +287,24 @@ const WebshopEdit = () => {
             )}
           </div>
           <div className="webshopEditCategories">
-          <h1>My Categories</h1>
-            {!loading
-              ? webshop.categories?.map((item) => {
-                console.log(item)
-                  return (
-                    <div className="webshopEditCategoriesOverview">
-                      <p>{item.name}</p>
-                      
-        
-                      <button className="webshopEditCategoriesDelete">Delete</button>
-                    </div>
-                  );
-                })
-              : null}
+            <h1>My Categories</h1>
+            {!loading && webshop.categories?.length > 0 ? (
+              webshop.categories?.map((item) => {
+                return (
+                  <div className="webshopEditCategoriesOverview" key={item._id}>
+                    <p>{item.name}</p>
+                    <button
+                      className="webshopEditCategoriesDelete"
+                      onClick={() => deleteCategory(item._id, item.name)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <p style={{ marginTop: 20 }}>No categories found.</p>
+            )}
           </div>
           <AddCategory
             webshopId={webshop?._id}

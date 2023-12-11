@@ -29,16 +29,18 @@ const webshopSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    categories: {
-      name: {
-        type: String,
-        required: true,
+    categories: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        products: {
+          type: [String],
+          default: [],
+        },
       },
-      products: {
-        type: [String],
-        required: true,
-      },
-    },
+    ],
     products: {
       type: [String],
       default: [],

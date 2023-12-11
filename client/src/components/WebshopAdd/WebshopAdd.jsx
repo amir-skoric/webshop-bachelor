@@ -40,29 +40,29 @@ const WebshopAdd = ({ showPopup }) => {
       )
       //then use the url provided from the cloudinary api to use as our bannerImage
       .then((res) => {
-        try {
-          axios
-            .post("http://localhost:4000/addWebshop", {
-              data: {
-                name: data.name,
-                shortDescription: data.shortDescription,
-                description: data.description,
-                color: data.color,
-                bannerImage: res.data.secure_url,
-                bannerImageId: res.data.public_id,
-              },
-              withCredentials: true,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                alert(res.data.message);
-                setLoading(false);
-                window.location.reload();
-              }
-            });
-        } catch (error) {
-          setError(error.response.data.error);
-        }
+        axios
+          .post("http://localhost:4000/addWebshop", {
+            data: {
+              name: data.name,
+              shortDescription: data.shortDescription,
+              description: data.description,
+              color: data.color,
+              bannerImage: res.data.secure_url,
+              bannerImageId: res.data.public_id,
+            },
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert(res.data.message);
+              setLoading(false);
+              window.location.reload();
+            }
+          })
+          .catch((error) => {
+            setError(error.response.data.error);
+            setLoading(false)
+          });
       });
   };
 
