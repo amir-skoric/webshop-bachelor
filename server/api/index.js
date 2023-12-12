@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const port = process.env.PORT || 5000;
-const mongo = require("./mongo");
+const mongo = require("../mongo");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -37,30 +37,30 @@ app.use(
 
 //imports
 //AUTH
-const login = require("./api/auth/login");
-const register = require("./api/auth/register");
-const signout = require("./api/auth/signout");
-const deleteUser = require("./api/auth/deleteUser");
-const setAuth = require("./api/auth/setAuth");
-const authCheck = require("./middleware/authCheck");
+const login = require("./auth/login");
+const register = require("./auth/register");
+const signout = require("./auth/signout");
+const deleteUser = require("./auth/deleteUser");
+const setAuth = require("./auth/setAuth");
+const authCheck = require("../middleware/authCheck");
 
 //WEBSHOP
-const getWebshops = require("./api/webshop/getWebshops");
-const getWebshop = require("./api/webshop/getWebshop");
-const addWebshop = require("./api/webshop/addWebshop");
-const deleteWebshop = require("./api/webshop/deleteWebshop");
-const updateWebshop = require("./api/webshop/updateWebshop");
+const getWebshops = require("./webshop/getWebshops");
+const getWebshop = require("./webshop/getWebshop");
+const addWebshop = require("./webshop/addWebshop");
+const deleteWebshop = require("./webshop/deleteWebshop");
+const updateWebshop = require("./webshop/updateWebshop");
 
 //CATEGORY
-const addCategory = require("./api/category/addCategory");
-const deleteCategory = require("./api/category/deleteCategory");
+const addCategory = require("./category/addCategory");
+const deleteCategory = require("./category/deleteCategory");
 
 //PRODUCT
-const addProduct = require("./api/product/addProduct");
-const getProducts = require("./api/product/getProducts");
-const getProduct = require("./api/product/getProduct");
-const deleteProduct = require("./api/product/deleteProduct");
-const updateProduct = require("./api/product/updateProduct");
+const addProduct = require("./product/addProduct");
+const getProducts = require("./product/getProducts");
+const getProduct = require("./product/getProduct");
+const deleteProduct = require("./product/deleteProduct");
+const updateProduct = require("./product/updateProduct");
 
 app.get("/", cors(), (req, res) => {
   res.json("You shouldn't be here...");
