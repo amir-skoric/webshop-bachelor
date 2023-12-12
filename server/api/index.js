@@ -26,6 +26,8 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: true,
     rolling: true,
+    httpOnly: true,
+    sameSite: "none",
     saveUninitialized: false,
     cookie: {
       secure: false,
@@ -37,7 +39,7 @@ app.use(
 
 //imports
 //AUTH
-const login = require("../src/api/auth/login")
+const login = require("../src/api/auth/login");
 const register = require("../src/api/auth/register");
 const signout = require("../src/api/auth/signout");
 const deleteUser = require("../src/api/auth/deleteUser");
