@@ -2,9 +2,10 @@
 import axios from "axios";
 
 const getProducts = async (webshop) => {
+  const url = import.meta.env.VITE_API_URL;
   let params = { webshop: webshop };
   try {
-    let res = await axios.get("http://localhost:4000/getProducts", {
+    let res = await axios.get(`${url}getProducts`, {
       params,
     });
     return res.data;

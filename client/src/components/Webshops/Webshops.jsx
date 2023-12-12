@@ -12,28 +12,31 @@ import AddWebshop from "../WebshopAdd/WebshopAdd";
 const Webshops = () => {
   const [webshops, setWebshops] = useState({});
   const [loading, setLoading] = useState(true);
-  const [showPopup, setShowpopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   //get the current users webshops from the database
   async function getWebshops() {
+    const url = import.meta.env.VITE_API_URL;
     try {
-      await axios.get("http://localhost:4000/getWebshops").then((res) => {
+      await axios.get(`${url}getWebshops`).then((res) => {
         if (res.status === 200) {
           setWebshops(res.data);
           setLoading(false);
         }
       });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
 
+  //function used to show the addWebshop component
   function addWebshopPopup() {
-    setShowpopup(true);
+    setShowPopup(true);
   }
 
   //delete webshop function
   async function deleteWebshop(id, name, createdById) {
+    const url = import.meta.env.VITE_API_URL;
     if (
       window.confirm(
         `Are you sure you want to delete ${name}? This will also delete all products assosiated with your store`
@@ -42,7 +45,7 @@ const Webshops = () => {
       //delete image from cloudinary using api (does not work)
       try {
         await axios
-          .delete("http://localhost:4000/deleteWebshop", {
+          .delete(`${url}deleteWebshop`, {
             data: { webshopId: id, createdById: createdById },
           })
           .then((res) => {
@@ -53,7 +56,6 @@ const Webshops = () => {
             }
           });
       } catch (error) {
-        console.log(error);
         alert(error.response.data.error);
       }
   }
@@ -68,7 +70,7 @@ const Webshops = () => {
         <button onClick={addWebshopPopup} className="webshopAddButton">
           Create a Webshop
         </button>
-        {showPopup && <AddWebshop showPopup={setShowpopup} />}
+        {showPopup && <AddWebshop showPopup={setShowPopup} />}
       </div>
       <div className="webshopTableInfo">
         <p>Name</p>

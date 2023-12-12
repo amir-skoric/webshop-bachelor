@@ -34,6 +34,8 @@ const AddProduct = (webshopId) => {
 
     //set loading to true while uploading
     setLoading(true);
+
+    const url = import.meta.env.VITE_API_URL
     axios
       .post(
         `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
@@ -45,7 +47,7 @@ const AddProduct = (webshopId) => {
       .then(async (res) => {
         try {
           await axios
-            .post("http://localhost:4000/addProduct", {
+            .post(`${url}addProduct`, {
               data: {
                 name: data.name,
                 shortDescription: data.shortDescription,

@@ -30,6 +30,8 @@ const WebshopAdd = ({ showPopup }) => {
     formData.append("file", file);
     formData.append("upload_preset", preset);
 
+    const url = import.meta.env.VITE_API_URL;
+
     axios
       .post(
         `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
@@ -41,7 +43,7 @@ const WebshopAdd = ({ showPopup }) => {
       //then use the url provided from the cloudinary api to use as our bannerImage
       .then((res) => {
         axios
-          .post("http://localhost:4000/addWebshop", {
+          .post(`${url}addWebshop`, {
             data: {
               name: data.name,
               shortDescription: data.shortDescription,

@@ -1,7 +1,7 @@
 //imports
 const webshopCollection = require("../../models/webshopCollection");
 
-//add webshop
+//update webshop
 module.exports = async (req, res) => {
   try {
     //check if webshop with the desired name exists
@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
         {
           name: req.body.data.name,
           description: req.body.data.description,
+          shortDescription: req.body.data.shortDescription,
           color: req.body.data.color,
           bannerImage: req.body.data.bannerImage,
         },

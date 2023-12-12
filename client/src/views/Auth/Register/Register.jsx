@@ -21,9 +21,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    const url = import.meta.env.VITE_API_URL;
     try {
       await axios
-        .post("http://localhost:4000/register", {
+        .post(`${url}register`, {
           data,
           withCredentials: true,
         })

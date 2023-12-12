@@ -22,13 +22,14 @@ const AddCategory = ({ products, loading, webshopId }) => {
 
   //add category function
   const onSubmit = async (data) => {
+    const url = import.meta.env.VITE_API_URL;
     if (!data.products) {
       return setError("You can't create a category without products");
     }
     {
       try {
         await axios
-          .post("http://localhost:4000/addCategory", {
+          .post(`${url}addCategory`, {
             data: {
               webshop: webshopId,
               name: data.name,
@@ -36,7 +37,6 @@ const AddCategory = ({ products, loading, webshopId }) => {
             },
           })
           .then((res) => {
-            console.log(res);
             if (res.status === 200) {
               alert(res.data.message);
               navigate(-1);

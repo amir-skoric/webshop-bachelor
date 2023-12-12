@@ -1,8 +1,8 @@
-.h1-webshopadd {
+.h1-editProduct {
   margin-bottom: 20px;
 }
 
-.webshopadd {
+.editProduct {
   position: fixed;
   margin-left: auto;
   margin-right: auto;
@@ -18,23 +18,29 @@
   background: rgb(0 0 0 / 0.25);
 }
 
-.webshopadd-container {
+.editProduct-container {
+  transform: scale(0.9);
   display: flex;
   flex-direction: column;
   background: white;
   padding: 50px;
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  transform: scale(0.9)
 }
 
-.form-webshopadd {
+.form-editProduct > img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.form-editProduct {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.form-webshopadd > input[type="email"] {
+.form-editProduct > input[type="email"] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -42,7 +48,7 @@
   border: solid 1px;
 }
 
-.form-webshopadd > input[type="text"] {
+.form-editProduct > input[type="number"] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -50,7 +56,7 @@
   border: solid 1px;
 }
 
-.form-webshopadd > textarea[type="text"] {
+.form-editProduct > input[type="text"] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -58,7 +64,15 @@
   border: solid 1px;
 }
 
-.form-webshopadd > input[type="submit"] {
+.form-editProduct > textarea[type="text"] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: solid 1px;
+}
+
+.form-editProduct > input[type="submit"] {
   padding: 15px 30px;
   background: rgba(98, 121, 255, 0.8);
   border: none;
@@ -68,12 +82,12 @@
   width: 100%;
 }
 
-.form-webshopadd > input[type="submit"]:hover {
+.form-editProduct > input[type="submit"]:hover {
   background: rgba(98, 121, 255, 1);
   cursor: pointer;
 }
 
-.webshopadd-close {
+.editProduct-close {
   padding: 15px 30px;
   background: rgba(255, 98, 98, 0.8);
   border: none;
@@ -84,7 +98,7 @@
   margin-top: 20px;
 }
 
-.webshopadd-close:hover {
+.editProduct-close:hover {
   background: rgba(255, 98, 98, 1);
   cursor: pointer;
 }

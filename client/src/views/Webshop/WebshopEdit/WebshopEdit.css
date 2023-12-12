@@ -118,7 +118,29 @@
   text-align: center;
 }
 
-.productsEditDelete > button {
+.productsEditDelete {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.productsEditButton {
+  padding: 15px 20px;
+  background: rgba(98, 171, 255, 0.8);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 200ms ease-in-out;
+  width: 100%;
+}
+
+.productsEditButton:hover {
+  background: rgba(98, 171, 255, 1);
+  cursor: pointer;
+}
+
+.productsDeleteButton {
   padding: 15px 20px;
   background: rgba(255, 98, 98, 0.8);
   border: none;
@@ -128,7 +150,7 @@
   width: 100%;
 }
 
-.productsEditDelete > button:hover {
+.productsDeleteButton:hover {
   background: rgba(255, 98, 98, 1);
   cursor: pointer;
 }
@@ -152,12 +174,23 @@
   padding: 20px;
   border-radius: 10px;
   background: white;
-  margin: 20px 0;
+  width: 100%;
+}
 
+.webshopEditCategoriesOverviewContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.webshopEditCategoriesButtonContainer {
+  display: flex;
+  gap: 20px;
+  margin-left: 20px;
 }
 
 .webshopEditCategoriesDelete {
-  padding: 15px 20px;
+  padding: 10px 15px;
   background: rgba(255, 98, 98, 0.8);
   border: none;
   border-radius: 10px;
@@ -167,5 +200,19 @@
 
 .webshopEditCategoriesDelete:hover {
   background: rgba(255, 98, 98, 1);
+  cursor: pointer;
+}
+
+.webshopEditCategoriesEdit {
+  padding: 10px 15px;
+  background: rgba(98, 171, 255, 0.8);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 200ms ease-in-out;
+}
+
+.webshopEditCategoriesEdit:hover {
+  background: rgba(98, 171, 255, 1);
   cursor: pointer;
 }

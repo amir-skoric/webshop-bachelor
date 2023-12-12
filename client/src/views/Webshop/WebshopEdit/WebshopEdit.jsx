@@ -8,6 +8,8 @@ import Error from "../../../components/Error/Error";
 
 //add product import
 import AddProduct from "../../../components/Product/AddProduct/AddProduct";
+//edit product import
+import EditProduct from "../../../components/Product/EditProduct/EditProduct";
 //add category import
 import AddCategory from "../../../components/Product/AddCategory/AddCategory";
 
@@ -24,8 +26,10 @@ const WebshopEdit = () => {
 
   const [error, setError] = useState("");
   const [products, setProducts] = useState({});
+  const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   //get state from webshop
   const location = useLocation();
@@ -45,12 +49,19 @@ const WebshopEdit = () => {
     },
   });
 
+  //function used to show the editProduct component
+  function editProductPopup(item) {
+    setShowPopup(true);
+    setProduct(item);
+  }
+
   //delete product function
   async function deleteProduct(id, name) {
+    const url = import.meta.env.VITE_API_URL;
     if (window.confirm(`Are you sure you want to delete ${name}?`))
       try {
         await axios
-          .delete("http://localhost:4000/deleteProduct", {
+          .delete(`${url}deleteProduct`, {
             data: {
               productId: id,
               webshop: webshop?._id,
@@ -73,10 +84,11 @@ const WebshopEdit = () => {
 
   //delete category function
   async function deleteCategory(id, name) {
+    const url = import.meta.env.VITE_API_URL;
     if (window.confirm(`Are you sure you want to delete ${name}?`))
       try {
         await axios
-          .delete("http://localhost:4000/deleteCategory", {
+          .delete(`${url}deleteCategory`, {
             data: {
               categoryId: id,
               webshop: webshop?._id,
@@ -107,8 +119,9 @@ const WebshopEdit = () => {
     const preset = import.meta.env.VITE_CLOUDINARY_PRESET;
     const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
+    const url = import.meta.env.VITE_API_URL;
+
     //if an image is selected then:
-    const reader = new FileReader();
     if (data?.bannerImage[0] !== undefined) {
       const formData = new FormData();
       const file = data.bannerImage[0];
@@ -126,7 +139,7 @@ const WebshopEdit = () => {
         .then((res) => {
           try {
             axios
-              .put("http://localhost:4000/updateWebshop", {
+              .put(`${url}updateWebshop`, {
                 data: {
                   _id: data?._id,
                   name: data?.name,
@@ -153,7 +166,7 @@ const WebshopEdit = () => {
       //if no new image is selected, keep the current one saved in the database
       try {
         await axios
-          .put("http://localhost:4000/updateWebshop", {
+          .put(`${url}updateWebshop`, {
             data: {
               _id: data?._id,
               name: data?.name,
@@ -256,7 +269,9 @@ const WebshopEdit = () => {
                 products.map((item) => {
                   return (
                     <div className="productsContainerEditPage" key={item._id}>
-                      <Link to={`/webshops/${webshop.name}/products/${item._id}`}>
+                      <Link
+                        to={`/webshops/${webshop.name}/products/${item._id}`}
+                      >
                         <div className="productsEditOverview">
                           <img src={item.image}></img>
                           <h3>{item.name}</h3>
@@ -268,6 +283,13 @@ const WebshopEdit = () => {
                       </Link>
                       <div className="productsEditDelete">
                         <button
+                          className="productsEditButton"
+                          onClick={() => editProductPopup(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="productsDeleteButton"
                           onClick={() =>
                             deleteProduct(item._id, item.name, item.createdBy)
                           }
@@ -291,14 +313,27 @@ const WebshopEdit = () => {
             {!loading && webshop.categories?.length > 0 ? (
               webshop.categories?.map((item) => {
                 return (
-                  <div className="webshopEditCategoriesOverview" key={item._id}>
-                    <p>{item.name}</p>
-                    <button
-                      className="webshopEditCategoriesDelete"
-                      onClick={() => deleteCategory(item._id, item.name)}
-                    >
-                      Delete
-                    </button>
+                  <div
+                    className="webshopEditCategoriesOverviewContainer"
+                    key={item._id}
+                  >
+                    <div className="webshopEditCategoriesOverview">
+                      <p>{item.name}</p>
+                    </div>
+                    <div className="webshopEditCategoriesButtonContainer">
+                      <button
+                        className="webshopEditCategoriesEdit"
+                        onClick={() => console.log("Does not work")}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="webshopEditCategoriesDelete"
+                        onClick={() => deleteCategory(item._id, item.name)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 );
               })
@@ -312,6 +347,9 @@ const WebshopEdit = () => {
             loading={loading}
           />
           <AddProduct webshopId={webshop?._id} />
+          {showPopup && (
+            <EditProduct showPopup={setShowPopup} product={product} />
+          )}
         </div>
       ) : (
         <h1>Unauthorized Access</h1>

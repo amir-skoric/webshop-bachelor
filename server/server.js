@@ -60,6 +60,7 @@ const addProduct = require("./controllers/product/addProduct");
 const getProducts = require("./controllers/product/getProducts");
 const getProduct = require("./controllers/product/getProduct");
 const deleteProduct = require("./controllers/product/deleteProduct");
+const updateProduct = require("./controllers/product/updateProduct");
 
 app.get("/", cors(), (req, res) => {
   res.json("You shouldn't be here...");
@@ -120,3 +121,6 @@ app.post("/addProduct", authCheck, addProduct);
 
 //delete product
 app.delete("/deleteProduct", authCheck, deleteProduct);
+
+//update product
+app.put("/updateProduct", authCheck, updateProduct);

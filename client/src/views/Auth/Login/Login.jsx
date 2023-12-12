@@ -18,9 +18,10 @@ const Login = () => {
   const { setAuthenticated, setAuthUser, error, setError } = useAuth();
 
   const onSubmit = async (data) => {
+    const url = import.meta.env.VITE_API_URL;
     try {
       await axios
-        .post("http://localhost:4000/login", data, {
+        .post(`${url}login`, data, {
           withCredentials: true,
         })
         .then((res) => {

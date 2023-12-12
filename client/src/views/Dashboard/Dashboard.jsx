@@ -15,26 +15,24 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   async function signout() {
-    try {
-      await axios
-        .get("http://localhost:4000/signout", {
-          withCredentials: true,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            alert(res.data.message);
-            navigate("/login");
-            window.location.reload();
-          } else {
-            alert("An error occurred trying to log out");
-          }
-        });
-    } catch (error) {
-      alert(error);
-    }
+    const url = import.meta.env.VITE_API_URL;
+    await axios
+      .get(`${url}signout`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          alert(res.data.message);
+          navigate("/login");
+          window.location.reload();
+        } else {
+          alert("An error occurred trying to log out");
+        }
+      });
   }
 
   async function deleteUser() {
+    const url = import.meta.env.VITE_API_URL;
     if (
       window.confirm(
         `Are you sure you want to delete your user? This will will delete all webshops and products you've made.`
@@ -42,7 +40,7 @@ const Dashboard = () => {
     )
       try {
         await axios
-          .delete("http://localhost:4000/deleteUser", {
+          .delete(`${url}deleteUser`, {
             data: { createdById: authUser.id },
           })
           .then((res) => {
@@ -59,7 +57,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-banner">
-        <img src={Logo} style={{height: 100}} />
+        <img src={Logo} style={{ height: 100 }} />
         <h1>
           Hello, {authUser.fName} {authUser.lName}
         </h1>
