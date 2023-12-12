@@ -31,6 +31,7 @@ app.use(
       httpOnly: true,
       sameSite: "none",
       secure: true,
+      domain: "https://webshop-bachelor.vercel.app/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     },
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
