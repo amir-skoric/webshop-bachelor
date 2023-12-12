@@ -1,7 +1,7 @@
 //imports
 const userCollection = require("../../models/userCollection.js");
-const webshopCollection = require("../../models/webshopCollection");
-const productsCollection = require("../../models/productCollection");
+const webshopCollection = require("../../models/webshopCollection.js");
+const productsCollection = require("../../models/productCollection.js");
 
 //register
 module.exports = async (req, res) => {

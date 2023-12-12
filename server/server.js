@@ -37,30 +37,30 @@ app.use(
 
 //imports
 //AUTH
-const login = require("./controllers/auth/login");
-const register = require("./controllers/auth/register");
-const signout = require("./controllers/auth/signout");
-const deleteUser = require("./controllers/auth/deleteUser");
-const setAuth = require("./controllers/auth/setAuth");
-const authCheck = require("./controllers/auth/authCheck");
+const login = require("./api/auth/login");
+const register = require("./api/auth/register");
+const signout = require("./api/auth/signout");
+const deleteUser = require("./api/auth/deleteUser");
+const setAuth = require("./api/auth/setAuth");
+const authCheck = require("./middleware/authCheck");
 
 //WEBSHOP
-const getWebshops = require("./controllers/webshop/getWebshops");
-const getWebshop = require("./controllers/webshop/getWebshop");
-const addWebshop = require("./controllers/webshop/addWebshop");
-const deleteWebshop = require("./controllers/webshop/deleteWebshop");
-const updateWebshop = require("./controllers/webshop/updateWebshop");
+const getWebshops = require("./api/webshop/getWebshops");
+const getWebshop = require("./api/webshop/getWebshop");
+const addWebshop = require("./api/webshop/addWebshop");
+const deleteWebshop = require("./api/webshop/deleteWebshop");
+const updateWebshop = require("./api/webshop/updateWebshop");
 
 //CATEGORY
-const addCategory = require("./controllers/category/addCategory");
-const deleteCategory = require("./controllers/category/deleteCategory");
+const addCategory = require("./api/category/addCategory");
+const deleteCategory = require("./api/category/deleteCategory");
 
 //PRODUCT
-const addProduct = require("./controllers/product/addProduct");
-const getProducts = require("./controllers/product/getProducts");
-const getProduct = require("./controllers/product/getProduct");
-const deleteProduct = require("./controllers/product/deleteProduct");
-const updateProduct = require("./controllers/product/updateProduct");
+const addProduct = require("./api/product/addProduct");
+const getProducts = require("./api/product/getProducts");
+const getProduct = require("./api/product/getProduct");
+const deleteProduct = require("./api/product/deleteProduct");
+const updateProduct = require("./api/product/updateProduct");
 
 app.get("/", cors(), (req, res) => {
   res.json("You shouldn't be here...");
