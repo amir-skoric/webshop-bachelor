@@ -89,7 +89,7 @@ const Products = ({ webshopData }) => {
             All products
           </p>
           {!loading && webshopData.categories?.length > 0 ? (
-            webshopData.categories.map((item) => {
+            webshopData.categories?.map((item) => {
               const filtered = productsUnfiltered.filter((obj) =>
                 item.products.includes(obj._id)
               );
@@ -132,7 +132,7 @@ const Products = ({ webshopData }) => {
           </select>
           <div className="productsOverviewContainer">
             {!loading ? (
-              products.map((item) => {
+              products?.map((item) => {
                 return (
                   <div className="productContainer" key={item._id}>
                     <Link
