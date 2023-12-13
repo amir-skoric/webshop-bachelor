@@ -58,7 +58,7 @@ const WebshopFrontpage = () => {
       {webshopData.message === "Request failed with status code 404" ? (
         <NotFound />
       ) : (
-        <div>
+        <>
           {adminCheck()}
           {loading && <SpinnerWebshop />}
           <div
@@ -81,7 +81,7 @@ const WebshopFrontpage = () => {
             If you have any questions related to our webshop, feel free to
             contact us at: <strong>{webshopData.createdByEmail}</strong>
           </p>
-        </div>
+        </>
       )}
     </div>
   );

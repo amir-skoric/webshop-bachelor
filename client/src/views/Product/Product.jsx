@@ -69,7 +69,7 @@ const Product = () => {
       {productData === undefined ? (
         <NotFound />
       ) : (
-        <div>
+        <>
           <Link className="productPageBackButton" to={`/webshops/${webshop}`}>
             Go back
           </Link>
@@ -117,7 +117,7 @@ const Product = () => {
           ) : (
             <SpinnerWebshop />
           )}
-        </div>
+        </>
       )}
     </div>
   );
