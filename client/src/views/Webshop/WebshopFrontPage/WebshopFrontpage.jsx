@@ -8,6 +8,9 @@ import SpinnerWebshop from "../../../components/Spinner/SpinnerWebshop";
 //get webshop from api utility
 import getWebshop from "../../../api/Webshop/getWebshop";
 
+//import 404 not found page if webshop does not exist
+import NotFound from "../../NotFound/NotFound";
+
 //products import
 import Products from "../../../components/Product/Products/Products";
 
@@ -52,28 +55,34 @@ const WebshopFrontpage = () => {
 
   return (
     <div className="webshopFrontpage">
-      {adminCheck()}
-      {loading && <SpinnerWebshop />}
-      <div
-        className="webshopBannerImage"
-        style={{ backgroundImage: `url(${webshopData.bannerImage})` }}
-      >
-        <div className="webshopBannerContainer">
-          <h1 style={{ color: webshopData.color }}>
-            {webshopData.message || webshopData.name}
+      {webshopData.message === "Request failed with status code 404" ? (
+        <NotFound />
+      ) : (
+        <div>
+          {adminCheck()}
+          {loading && <SpinnerWebshop />}
+          <div
+            className="webshopBannerImage"
+            style={{ backgroundImage: `url(${webshopData.bannerImage})` }}
+          >
+            <div className="webshopBannerContainer">
+              <h1 style={{ color: webshopData.color }}>
+                {webshopData.message || webshopData.name}
+              </h1>
+              <p>{webshopData.shortDescription}</p>
+            </div>
+          </div>
+          <h1 style={{ textAlign: "center", color: webshopData.color }}>
+            About us
           </h1>
-          <p>{webshopData.shortDescription}</p>
+          <p className="webshopDescription">{webshopData.description}</p>
+          <Products webshopData={webshopData} />
+          <p style={{ textAlign: "center", marginBottom: 50 }}>
+            If you have any questions related to our webshop, feel free to
+            contact us at: <strong>{webshopData.createdByEmail}</strong>
+          </p>
         </div>
-      </div>
-      <h1 style={{ textAlign: "center", color: webshopData.color }}>
-        About us
-      </h1>
-      <p className="webshopDescription">{webshopData.description}</p>
-      <Products webshopData={webshopData} />
-      <p style={{ textAlign: "center", marginBottom: 50 }}>
-        If you have any questions related to our webshop, feel free to contact
-        us at: <strong>{webshopData.createdByEmail}</strong>
-      </p>
+      )}
     </div>
   );
 };

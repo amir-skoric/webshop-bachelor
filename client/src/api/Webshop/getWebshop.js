@@ -7,7 +7,6 @@ const getWebshop = async (webshop) => {
     let res = await axios.get(`${url}getWebshop` + webshop);
     return res.data;
   } catch (error) {
-    alert(error.response.data.error);
     return error;
   }
 };

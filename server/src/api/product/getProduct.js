@@ -10,13 +10,13 @@ module.exports = async (req, res) => {
     if (!data) {
       return res
         .status(404)
-        .json({ error: "Something went wrong. Please try again later." });
+        .json({ error: "Product not found" });
     } else {
       return res.status(200).json(data);
     }
   } catch (error) {
     return res
-      .status(400)
-      .json({ error: "Something went wrong. Please try again later." });
+      .status(404)
+      .json({ error: "Product not found." });
   }
 };

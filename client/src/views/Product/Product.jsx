@@ -7,6 +7,9 @@ import "./Product.css";
 //spinner/loader
 import SpinnerWebshop from "../../components/Spinner/SpinnerWebshop";
 
+//not found page
+import NotFound from "../NotFound/NotFound";
+
 //get api utility
 import getProduct from "../../api/Product/getProduct";
 import getWebshop from "../../api/Webshop/getWebshop";
@@ -63,50 +66,58 @@ const Product = () => {
 
   return (
     <div className="productPage">
-      <Link className="productPageBackButton" to={`/webshops/${webshop}`}>
-        Go back
-      </Link>
-      {!loading ? (
-        <div className="product">
-          <div className="productLeft">
-            <img src={productData.image}></img>
-          </div>
-          <div className="productRight">
-            <div className="productRightContainerTitle">
-              <h1 style={{ color: webshopData.color }}>{productData.name}</h1>
-              <h3>
-                <i>{productData.shortDescription}</i>
-              </h3>
-              <p>{productData.serial}</p>
-            </div>
-            <h4>Description</h4>
-            <p>
-              <i>{productData.description}</i>
-            </p>
-            <h2>${productData.price}.00</h2>
-            <div className="productButtons">
-              <button
-                onClick={() => addToCart(productData)}
-                className="webshopAddToCartButton"
-                style={{ background: webshopData.color, width: 200 }}
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleCheckout(productData);
-                }}
-                className="webshopAddToCartButton"
-                style={{ background: "lightgreen", width: 200 }}
-              >
-                Buy Now
-              </button>
-            </div>
-          </div>
-        </div>
+      {productData === undefined ? (
+        <NotFound />
       ) : (
-        <SpinnerWebshop />
+        <div>
+          <Link className="productPageBackButton" to={`/webshops/${webshop}`}>
+            Go back
+          </Link>
+          {!loading ? (
+            <div className="product">
+              <div className="productLeft">
+                <img src={productData?.image} alt={productData?.name} />
+              </div>
+              <div className="productRight">
+                <div className="productRightContainerTitle">
+                  <h1 style={{ color: webshopData.color }}>
+                    {productData?.name}
+                  </h1>
+                  <h3>
+                    <i>{productData?.shortDescription}</i>
+                  </h3>
+                  <p>{productData?.serial}</p>
+                </div>
+                <h4>Description</h4>
+                <p>
+                  <i>{productData?.description}</i>
+                </p>
+                <h2>${productData?.price}.00</h2>
+                <div className="productButtons">
+                  <button
+                    onClick={() => addToCart(productData)}
+                    className="webshopAddToCartButton"
+                    style={{ background: webshopData.color, width: 200 }}
+                  >
+                    Add to Cart
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleCheckout(productData);
+                    }}
+                    className="webshopAddToCartButton"
+                    style={{ background: "lightgreen", width: 200 }}
+                  >
+                    Buy Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <SpinnerWebshop />
+          )}
+        </div>
       )}
     </div>
   );

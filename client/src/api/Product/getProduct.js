@@ -6,7 +6,7 @@ const getProduct = async (product) => {
     let res = await axios.get(`${url}getProduct` + product);
     return res.data;
   } catch (error) {
-    alert(error)
+    //do nothing to be honest
   }
 };
 
