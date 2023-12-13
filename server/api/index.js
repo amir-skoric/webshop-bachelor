@@ -31,7 +31,7 @@ app.use(
       httpOnly: true,
       sameSite: "none",
       secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 60 * 20 * 1000, //expires after 20 minutes
     },
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
   })
