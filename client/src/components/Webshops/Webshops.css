@@ -22,7 +22,7 @@
   margin: 20px 0;
   border-bottom: 2px solid rgb(219, 219, 219);
   padding-bottom: 10px;
-  width: calc(100% - 70px);
+  width: calc(100% - 120px);
 }
 
 .webshopTableInfo > p {
@@ -52,6 +52,26 @@
 .webshopsDelete > button:hover {
   background: rgba(255, 98, 98, 1);
   cursor: pointer;
+}
+
+.webshopsEdit > button {
+  padding: 10px 10px;
+  background: rgba(98, 179, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: all 200ms ease-in-out;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.webshopsEdit > button:hover {
+  background: rgba(98, 179, 255, 0.8);
+  cursor: pointer;
+}
+
+.webshopsEdit {
+  margin-right: 10px;
 }
 
 .webshopInfo {

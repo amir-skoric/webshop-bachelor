@@ -1,8 +1,10 @@
 //imports
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Webshops.css";
 import axios from "axios";
 import Spinner from "../Spinner/SpinnerWebshopOverview";
+
 
 import { Link } from "react-router-dom";
 
@@ -10,6 +12,10 @@ import { Link } from "react-router-dom";
 import AddWebshop from "../WebshopAdd/WebshopAdd";
 
 const Webshops = () => {
+  //set up useNavigate
+  const navigate = useNavigate()
+
+  //states
   const [webshops, setWebshops] = useState({});
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
@@ -80,17 +86,24 @@ const Webshops = () => {
         <p>Date</p>
       </div>
       {!loading ? (
-        webshops.map((item) => {
+        webshops.map((webshopData) => {
           return (
-            <div className="webshopsContainer" key={item._id}>
+            <div className="webshopsContainer" key={webshopData._id}>
               <div className="webshops">
-                <Link className="webshopInfo" to={`/webshops/${item.name}`}>
-                  <p>{item.name}</p>
-                  <p>{item.description.substring(0, 15) + "..."}</p>
-                  <p style={{ color: item.color }}>■</p>
-                  <p>{item.products.length}</p>
-                  <p>{item.createdAt.substring(0, 10)}</p>
+                <Link className="webshopInfo" to={`/webshops/${webshopData.name}`}>
+                  <p>{webshopData.name}</p>
+                  <p>{webshopData.description.substring(0, 15) + "..."}</p>
+                  <p style={{ color: webshopData.color }}>■</p>
+                  <p>{webshopData.products.length}</p>
+                  <p>{webshopData.createdAt.substring(0, 10)}</p>
                 </Link>
+              </div>
+              <div className="webshopsEdit">
+                <button
+                  onClick={() => navigate(`/webshops/${webshopData.name}/edit`, {state: {webshopData}})}
+                >
+                  Edit
+                </button>
               </div>
               <div className="webshopsDelete">
                 <button

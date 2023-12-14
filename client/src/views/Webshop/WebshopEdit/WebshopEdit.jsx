@@ -189,6 +189,24 @@ const WebshopEdit = () => {
     }
   };
 
+  //signout function
+  async function signout() {
+    const url = import.meta.env.VITE_API_URL;
+    await axios
+      .get(`${url}signout`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          alert(res.data.message);
+          navigate("/login");
+          window.location.reload();
+        } else {
+          alert("An error occurred trying to log out");
+        }
+      });
+  }
+
   //get products from the webshop
   useEffect(() => {
     getProducts(webshop?._id)
@@ -206,6 +224,9 @@ const WebshopEdit = () => {
     <div className="webshopEdit">
       <button className="webshopEditBackButton" onClick={() => navigate(-1)}>
         Go back
+      </button>
+      <button className="webshopEditSignOutButton" onClick={() => signout()}>
+        Sign out
       </button>
       {webshop ? (
         <div className="webshopEditInfo">
